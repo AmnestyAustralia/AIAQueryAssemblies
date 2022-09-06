@@ -58,6 +58,9 @@
     <None Include="Catalog.ruleset" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AIA.QueryView.InteractionRollingDates.xml" />
+    <Content Include="AIA.QueryView.MembershipRollingDates.xml" />
+    <Content Include="AIA.QueryView.RevenueRollingDates.xml" />
     <Content Include="AIA.QueryView.ConstituentRollingDates.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
