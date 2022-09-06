@@ -1,0 +1,56 @@
+﻿<QueryViewSpec
+	xmlns="bb_appfx_queryview"
+	xmlns:c="bb_appfx_commontypes" 
+	ID="f101025c-ce78-41b3-96c8-cdd38bf3dca8"
+	Name="AIA Query"
+	Description="A view defined for querying on aia records"
+	Author="AIA"
+	IsRoot="true"
+	PrimaryKeyField="ID"
+	RecordType="AIA"
+	c:SecurityUIFolder="AIA"
+	>
+
+	<!-- define the view used to return data for the query -->
+	<ViewImplementation ViewName="USR_AIA_V_QUERY_AIA">
+		<ViewSQL>
+			<![CDATA[
+
+SELECT top 100
+  r.ID as ID,
+  [DATE] AS ActualDate,
+  DATEPART(yy, [DATE]) AS DateCalendarYear,
+  DATEPART(mm, [DATE]) AS DateCalendarMonth,
+  DATEPART(qq, [DATE]) AS DateCalendarQuarter,
+  DATEPART(ww, [DATE]) AS DateCalendarWeek,
+  DATEPART(dy, [DATE]) AS DateDayOfYear,
+  DATEPART(dd, [DATE]) AS DateDayOfMonth,
+  DATEPART(dw, [DATE]) AS DateDayOfWeek,
+  CASE WHEN DATEPART(mm, [DATE]) = DATEPART(mm, GETDATE()) THEN 1 ELSE 0 END AS ThisMonthAnyYear,
+  CASE WHEN DATEPART(dy, [DATE]) = DATEPART(dy, GETDATE()) THEN 1 ELSE 0 END AS ThisDayAnyYear,
+  CASE WHEN
+    (DATEPART(mm, [DATE]) = DATEPART(mm, GETDATE()) AND DATEPART(dd, [DATE]) = DATEPART(dd, GETDATE()))
+	 OR
+    (DATEPART(dy, [DATE]) = DATEPART(dy, GETDATE())
+	  AND DATEPART(mm, [DATE])    = 2 AND DATEPART(dd, [DATE])    = 29
+	  AND DATEPART(mm, GETDATE()) = 2 AND DATEPART(dd, GETDATE()) = 28)
+	THEN 1 ELSE 0 END AS ThisDayAnyYearLeap
+FROM
+  dbo.REVENUE r 
+
+			]]>
+		</ViewSQL>
+	</ViewImplementation>
+
+	<!-- describe each field in the view output -->
+	<Output>
+		<OutputFields>
+			<OutputField Caption="System record ID" Category="System Fields" Name="ID" />
+			<OutputField Name="FIELD1" Caption="Field 1" DataType="REPLACE_WITH_DATATYPE" />
+			<OutputField Name="FIELD2" Caption="Field 2" DataType="REPLACE_WITH_DATATYPE" />
+			<OutputField Name="FIELD3" Caption="Field 3" DataType="REPLACE_WITH_DATATYPE" />
+		</OutputFields>
+	</Output>
+
+</QueryViewSpec>
+
