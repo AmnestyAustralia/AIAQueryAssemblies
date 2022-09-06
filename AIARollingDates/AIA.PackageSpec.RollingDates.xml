@@ -1,0 +1,17 @@
+<PackageSpec 
+    xmlns="bb_appfx_package"
+    xmlns:c="bb_appfx_commontypes"
+    ID="6353b91f-1f10-4b9f-9978-355e63588053"
+    Name="AIA Package Rolling Dates"
+    Description="A package defining specs related to rolling dates"
+    Author="Danny Smith (AIA)"
+    >
+
+	<c:DependencyList>
+        <c:Dependency CatalogAssembly="AIARollingDates.dll" CatalogItem="AIARollingDates.AIA.QueryView.ConstituentRollingDates.xml" />
+        <c:Dependency CatalogAssembly="AIARollingDates.dll" CatalogItem="AIARollingDates.AIA.QueryView.RevenueRollingDates.xml" />
+        <c:Dependency CatalogAssembly="AIARollingDates.dll" CatalogItem="AIARollingDates.AIA.QueryView.InteractionRollingDates.xml" />
+        <c:Dependency CatalogAssembly="AIARollingDates.dll" CatalogItem="AIARollingDates.AIA.QueryView.MembershipRollingDates.xml" />
+    </c:DependencyList>
+
+</PackageSpec>

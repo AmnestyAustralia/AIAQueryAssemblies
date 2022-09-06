@@ -11,6 +11,8 @@
 	common:SecurityUIFolder="Revenue"
 >
 
+  <!-- Adapted from a script by David Bourne (TWS) -->
+
   <!-- define the view used to return data for the query -->
   <ViewImplementation ViewName="USR_AIA_V_QUERY_REVENUE_ROLLING_DATES">
     <ViewSQL>

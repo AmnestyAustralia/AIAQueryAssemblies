@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>Catalog.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -58,10 +58,15 @@
     <None Include="Catalog.ruleset" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AIA.QueryView.InteractionRollingDates.xml" />
-    <Content Include="AIA.QueryView.MembershipRollingDates.xml" />
-    <Content Include="AIA.QueryView.RevenueRollingDates.xml" />
-    <Content Include="AIA.QueryView.ConstituentRollingDates.xml" />
+    <EmbeddedResource Include="AIA.QueryView.InteractionRollingDates.xml" />
+    <EmbeddedResource Include="AIA.QueryView.MembershipRollingDates.xml" />
+    <EmbeddedResource Include="AIA.QueryView.RevenueRollingDates.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AIA.QueryView.ConstituentRollingDates.xml" />
+    <EmbeddedResource Include="AIA.PackageSpec.RollingDates.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

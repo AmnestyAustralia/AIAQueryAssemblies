@@ -11,10 +11,8 @@
 	common:SecurityUIFolder="Constituent"
 >
 
-  <!-- Version 1.0 - 27-Jul-17 - David Bourne (DB) first release -->
-  <!-- Version 1.1 - 04-Aug-17 - DB - Added more recent rolling dates (each distinct date in the last 7 days) -->  
-  <!-- Version 1.2 - 11-Jan-18 - DB - Added Days Ago 8-13, Years Ago 04 and fixed label on Days Ahead 07 -->    
-    
+  <!-- Adapted from a script by David Bourne (TWS) -->
+
   <!-- define the view used to return data for the query -->
   <ViewImplementation ViewName="USR_AIA_V_QUERY_CONSTITUENT_ROLLING_DATES">
     <ViewSQL>
