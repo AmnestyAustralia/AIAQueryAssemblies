@@ -182,7 +182,16 @@ FROM
       <OutputField Name="DaysAgo19" Caption="Days Ago 19" DataType="Date" />
       <OutputField Name="DaysAgo20" Caption="Days Ago 20" DataType="Date" />
       <OutputField Name="DaysAgo21" Caption="Days Ago 21" DataType="Date" />
+      <OutputField Name="DaysAgo22" Caption="Days Ago 22" DataType="Date" />
+      <OutputField Name="DaysAgo23" Caption="Days Ago 23" DataType="Date" />
+      <OutputField Name="DaysAgo24" Caption="Days Ago 24" DataType="Date" />
+      <OutputField Name="DaysAgo25" Caption="Days Ago 25" DataType="Date" />
+      <OutputField Name="DaysAgo26" Caption="Days Ago 26" DataType="Date" />
+      <OutputField Name="DaysAgo27" Caption="Days Ago 27" DataType="Date" />
       <OutputField Name="DaysAgo28" Caption="Days Ago 28" DataType="Date" />
+      <OutputField Name="DaysAgo29" Caption="Days Ago 29" DataType="Date" />
+      <OutputField Name="DaysAgo30" Caption="Days Ago 30" DataType="Date" />
+      <OutputField Name="DaysAgo31" Caption="Days Ago 31" DataType="Date" />
       <OutputField Name="WeeksAgo1" Caption="Weeks Ago 1" DataType="Date" />
       <OutputField Name="WeeksAgo2" Caption="Weeks Ago 2" DataType="Date" />
       <OutputField Name="WeeksAgo3" Caption="Weeks Ago 3" DataType="Date" />
