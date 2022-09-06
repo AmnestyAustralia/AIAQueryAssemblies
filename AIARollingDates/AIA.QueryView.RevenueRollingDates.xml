@@ -99,6 +99,7 @@ SELECT
   cast(DATEADD(month, -10, (GETDATE())) as date) as MonthsAgo10,
   cast(DATEADD(month, -11, (GETDATE())) as date) as MonthsAgo11,
   cast(DATEADD(month, -12, (GETDATE())) as date) as MonthsAgo12,
+  cast(DATEADD(month, -18, (GETDATE())) as date) as MonthsAgo18,
   cast(DATEADD(year, -1, (GETDATE())) as date) as YearsAgo1,
   cast(DATEADD(year, -2, (GETDATE())) as date) as YearsAgo2,
   cast(DATEADD(year, -3, (GETDATE())) as date) as YearsAgo3,
@@ -206,6 +207,7 @@ FROM
       <OutputField Name="MonthsAgo10" Caption="Months Ago 10" DataType="Date" />
       <OutputField Name="MonthsAgo11" Caption="Months Ago 11" DataType="Date" />
       <OutputField Name="MonthsAgo12" Caption="Months Ago 12" DataType="Date" />
+      <OutputField Name="MonthsAgo18" Caption="Months Ago 18" DataType="Date" />
       <OutputField Name="YearsAgo1" Caption="Years Ago 01" DataType="Date" />
       <OutputField Name="YearsAgo2" Caption="Years Ago 02" DataType="Date" />
       <OutputField Name="YearsAgo3" Caption="Years Ago 03" DataType="Date" />

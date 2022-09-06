@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("AIARollingDates")]
-[assembly: AssemblyDescription("CRM Training - Rolling Dates test")]
+[assembly: AssemblyDescription("Query views to allow use of rolling dates on common source views")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Amnesty International Australia")]
 [assembly: AssemblyProduct("AIARollingDates")]
