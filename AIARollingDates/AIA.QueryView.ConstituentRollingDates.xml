@@ -3,7 +3,7 @@
 	xmlns:common="bb_appfx_commontypes" 
 	ID="8BA0162E-3C7B-4ED8-AB8C-66A5432C3CFE"
 	Name="Constituent Rolling Dates (AIA)"
-	Description="A custom view for relative dates linked to constituents"
+	Description="A custom view for rolling dates linked to constituents"
 	Author="Danny Smith (AIA)"
 	IsRoot="false"
 	PrimaryKeyField="ID"
@@ -16,14 +16,14 @@
   <!-- Version 1.2 - 11-Jan-18 - DB - Added Days Ago 8-13, Years Ago 04 and fixed label on Days Ahead 07 -->    
     
   <!-- define the view used to return data for the query -->
-  <ViewImplementation ViewName="USR_AIA_V_QUERY_CONSTITUENT_RELATIVE_DATES">
+  <ViewImplementation ViewName="USR_AIA_V_QUERY_CONSTITUENT_ROLLING_DATES">
     <ViewSQL>
       <![CDATA[
       
 SELECT 
   c.ID as ID,
   
-  -- Recent relative dates
+  -- Recent rolling dates
   cast(GETDATE() as date) as Today,
   cast(DATEADD(day, -1, GETDATE()) as date) as Yesterday,
   cast(DATEADD(day, +1, GETDATE()) as date) as Tomorrow,
@@ -68,19 +68,48 @@ SELECT
   cast(DATEADD(day, -12, GETDATE()) as date) as DaysAgo12,
   cast(DATEADD(day, -13, GETDATE()) as date) as DaysAgo13,
   cast(DATEADD(day, -14, GETDATE()) as date) as DaysAgo14,
+  cast(DATEADD(day, -15, GETDATE()) as date) as DaysAgo15,
+  cast(DATEADD(day, -16, GETDATE()) as date) as DaysAgo16,
+  cast(DATEADD(day, -17, GETDATE()) as date) as DaysAgo17,
+  cast(DATEADD(day, -18, GETDATE()) as date) as DaysAgo18,
+  cast(DATEADD(day, -19, GETDATE()) as date) as DaysAgo19,
+  cast(DATEADD(day, -20, GETDATE()) as date) as DaysAgo20,
   cast(DATEADD(day, -21, GETDATE()) as date) as DaysAgo21,
+  cast(DATEADD(day, -22, GETDATE()) as date) as DaysAgo22,
+  cast(DATEADD(day, -23, GETDATE()) as date) as DaysAgo23,
+  cast(DATEADD(day, -24, GETDATE()) as date) as DaysAgo24,
+  cast(DATEADD(day, -25, GETDATE()) as date) as DaysAgo25,
+  cast(DATEADD(day, -26, GETDATE()) as date) as DaysAgo26,
+  cast(DATEADD(day, -27, GETDATE()) as date) as DaysAgo27,
   cast(DATEADD(day, -28, GETDATE()) as date) as DaysAgo28,
+  cast(DATEADD(day, -29, GETDATE()) as date) as DaysAgo29,
+  cast(DATEADD(day, -30, GETDATE()) as date) as DaysAgo30,
+  cast(DATEADD(day, -31, GETDATE()) as date) as DaysAgo31,
+  cast(DATEADD(week, -1, (GETDATE())) as date) as WeeksAgo1,
+  cast(DATEADD(week, -2, (GETDATE())) as date) as WeeksAgo2,
+  cast(DATEADD(week, -3, (GETDATE())) as date) as WeeksAgo3,
+  cast(DATEADD(week, -4, (GETDATE())) as date) as WeeksAgo4,
   cast(DATEADD(month, -1, (GETDATE())) as date) as MonthsAgo1,
   cast(DATEADD(month, -2, (GETDATE())) as date) as MonthsAgo2,
   cast(DATEADD(month, -3, (GETDATE())) as date) as MonthsAgo3,
   cast(DATEADD(month, -4, (GETDATE())) as date) as MonthsAgo4,
   cast(DATEADD(month, -5, (GETDATE())) as date) as MonthsAgo5,
   cast(DATEADD(month, -6, (GETDATE())) as date) as MonthsAgo6,
+  cast(DATEADD(month, -7, (GETDATE())) as date) as MonthsAgo7,
+  cast(DATEADD(month, -8, (GETDATE())) as date) as MonthsAgo8,
+  cast(DATEADD(month, -9, (GETDATE())) as date) as MonthsAgo9,
+  cast(DATEADD(month, -10, (GETDATE())) as date) as MonthsAgo10,
+  cast(DATEADD(month, -11, (GETDATE())) as date) as MonthsAgo11,
+  cast(DATEADD(month, -12, (GETDATE())) as date) as MonthsAgo12,
   cast(DATEADD(year, -1, (GETDATE())) as date) as YearsAgo1,
   cast(DATEADD(year, -2, (GETDATE())) as date) as YearsAgo2,
   cast(DATEADD(year, -3, (GETDATE())) as date) as YearsAgo3,
   cast(DATEADD(year, -4, (GETDATE())) as date) as YearsAgo4,
   cast(DATEADD(year, -5, (GETDATE())) as date) as YearsAgo5,
+  cast(DATEADD(year, -6, (GETDATE())) as date) as YearsAgo6,
+  cast(DATEADD(year, -7, (GETDATE())) as date) as YearsAgo7,
+  cast(DATEADD(year, -8, (GETDATE())) as date) as YearsAgo8,
+  cast(DATEADD(year, -9, (GETDATE())) as date) as YearsAgo9,
   cast(DATEADD(year, -10, (GETDATE())) as date) as YearsAgo10,
 
   -- Rolling dates forward
@@ -146,19 +175,39 @@ FROM
       <OutputField Name="DaysAgo12" Caption="Days Ago 12" DataType="Date" />
       <OutputField Name="DaysAgo13" Caption="Days Ago 13" DataType="Date" />
       <OutputField Name="DaysAgo14" Caption="Days Ago 14" DataType="Date" />
+      <OutputField Name="DaysAgo15" Caption="Days Ago 15" DataType="Date" />
+      <OutputField Name="DaysAgo16" Caption="Days Ago 16" DataType="Date" />
+      <OutputField Name="DaysAgo17" Caption="Days Ago 17" DataType="Date" />
+      <OutputField Name="DaysAgo18" Caption="Days Ago 18" DataType="Date" />
+      <OutputField Name="DaysAgo19" Caption="Days Ago 19" DataType="Date" />
+      <OutputField Name="DaysAgo20" Caption="Days Ago 20" DataType="Date" />
       <OutputField Name="DaysAgo21" Caption="Days Ago 21" DataType="Date" />
       <OutputField Name="DaysAgo28" Caption="Days Ago 28" DataType="Date" />
-      <OutputField Name="MonthsAgo1" Caption="Months Ago 1" DataType="Date" />
-      <OutputField Name="MonthsAgo2" Caption="Months Ago 2" DataType="Date" />
-      <OutputField Name="MonthsAgo3" Caption="Months Ago 3" DataType="Date" />
-      <OutputField Name="MonthsAgo4" Caption="Months Ago 4" DataType="Date" />
-      <OutputField Name="MonthsAgo5" Caption="Months Ago 5" DataType="Date" />
-      <OutputField Name="MonthsAgo6" Caption="Months Ago 6" DataType="Date" />
+      <OutputField Name="WeeksAgo1" Caption="Weeks Ago 1" DataType="Date" />
+      <OutputField Name="WeeksAgo2" Caption="Weeks Ago 2" DataType="Date" />
+      <OutputField Name="WeeksAgo3" Caption="Weeks Ago 3" DataType="Date" />
+      <OutputField Name="WeeksAgo4" Caption="Weeks Ago 4" DataType="Date" />
+      <OutputField Name="MonthsAgo1" Caption="Months Ago 01" DataType="Date" />
+      <OutputField Name="MonthsAgo2" Caption="Months Ago 02" DataType="Date" />
+      <OutputField Name="MonthsAgo3" Caption="Months Ago 03" DataType="Date" />
+      <OutputField Name="MonthsAgo4" Caption="Months Ago 04" DataType="Date" />
+      <OutputField Name="MonthsAgo5" Caption="Months Ago 05" DataType="Date" />
+      <OutputField Name="MonthsAgo6" Caption="Months Ago 06" DataType="Date" />
+      <OutputField Name="MonthsAgo7" Caption="Months Ago 07" DataType="Date" />
+      <OutputField Name="MonthsAgo8" Caption="Months Ago 08" DataType="Date" />
+      <OutputField Name="MonthsAgo9" Caption="Months Ago 09" DataType="Date" />
+      <OutputField Name="MonthsAgo10" Caption="Months Ago 10" DataType="Date" />
+      <OutputField Name="MonthsAgo11" Caption="Months Ago 11" DataType="Date" />
+      <OutputField Name="MonthsAgo12" Caption="Months Ago 12" DataType="Date" />
       <OutputField Name="YearsAgo1" Caption="Years Ago 01" DataType="Date" />
       <OutputField Name="YearsAgo2" Caption="Years Ago 02" DataType="Date" />
       <OutputField Name="YearsAgo3" Caption="Years Ago 03" DataType="Date" />
       <OutputField Name="YearsAgo4" Caption="Years Ago 04" DataType="Date" />
       <OutputField Name="YearsAgo5" Caption="Years Ago 05" DataType="Date" />
+      <OutputField Name="YearsAgo6" Caption="Years Ago 06" DataType="Date" />
+      <OutputField Name="YearsAgo7" Caption="Years Ago 07" DataType="Date" />
+      <OutputField Name="YearsAgo8" Caption="Years Ago 08" DataType="Date" />
+      <OutputField Name="YearsAgo9" Caption="Years Ago 09" DataType="Date" />
       <OutputField Name="YearsAgo10" Caption="Years Ago 10" DataType="Date" />
       
       <OutputField Name="DaysAhead7" Caption="Days Ahead 07" DataType="Date" />
