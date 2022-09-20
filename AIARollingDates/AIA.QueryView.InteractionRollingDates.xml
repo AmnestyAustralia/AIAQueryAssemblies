@@ -87,6 +87,10 @@ SELECT
   cast(DATEADD(week, -2, (GETDATE())) as date) as WeeksAgo2,
   cast(DATEADD(week, -3, (GETDATE())) as date) as WeeksAgo3,
   cast(DATEADD(week, -4, (GETDATE())) as date) as WeeksAgo4,
+  cast(DATEADD(week, -5, (GETDATE())) as date) as WeeksAgo5,
+  cast(DATEADD(week, -6, (GETDATE())) as date) as WeeksAgo6,
+  cast(DATEADD(week, -7, (GETDATE())) as date) as WeeksAgo7,
+  cast(DATEADD(week, -8, (GETDATE())) as date) as WeeksAgo8,
   cast(DATEADD(month, -1, (GETDATE())) as date) as MonthsAgo1,
   cast(DATEADD(month, -2, (GETDATE())) as date) as MonthsAgo2,
   cast(DATEADD(month, -3, (GETDATE())) as date) as MonthsAgo3,
@@ -195,6 +199,10 @@ FROM
       <OutputField Name="WeeksAgo2" Caption="Weeks Ago 2" DataType="Date" />
       <OutputField Name="WeeksAgo3" Caption="Weeks Ago 3" DataType="Date" />
       <OutputField Name="WeeksAgo4" Caption="Weeks Ago 4" DataType="Date" />
+      <OutputField Name="WeeksAgo5" Caption="Weeks Ago 5" DataType="Date" />
+      <OutputField Name="WeeksAgo6" Caption="Weeks Ago 6" DataType="Date" />
+      <OutputField Name="WeeksAgo7" Caption="Weeks Ago 7" DataType="Date" />
+      <OutputField Name="WeeksAgo8" Caption="Weeks Ago 8" DataType="Date" />
       <OutputField Name="MonthsAgo1" Caption="Months Ago 01" DataType="Date" />
       <OutputField Name="MonthsAgo2" Caption="Months Ago 02" DataType="Date" />
       <OutputField Name="MonthsAgo3" Caption="Months Ago 03" DataType="Date" />
