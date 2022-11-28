@@ -1,0 +1,105 @@
+﻿<QueryViewSpec
+  xmlns="bb_appfx_queryview"
+  xmlns:c="bb_appfx_commontypes"
+  ID="c142acf8-16b9-45e6-b875-ce468bf959d3"
+  Name="Recurring Gift Origin (AIA)"
+  Description="Query to retrieve original information associated with recurring gifts"
+  Author="Danny Smith (AIA)"
+  IsRoot="false"
+  PrimaryKeyField="ID"
+  RecordType="Recurring Gift Revenue Function History"
+  c:SecurityUIFolder="Revenue\Recurring Gifts"
+  >
+
+  <!-- define the view used to return data for the query -->
+  <ViewImplementation ViewName="USR_AIA_V_QUERY_RECURRINGGIFTORIGIN">
+    <ViewSQL>
+      <![CDATA[
+select
+  HISTORY.ID,
+  HISTORY.FINANCIALTRANSACTIONID as REVENUEID,
+  HISTORY.DATE as TRANSACTIONDATE,
+  HISTORY.TRANSACTIONAMOUNT as AMOUNT,
+  HISTORY.FREQUENCY,
+  HISTORY.PAYMENTMETHOD,
+  HISTORY.SOURCECODE,
+  HISTORY.FINDERNUMBER,
+  HISTORY.APPEALID,
+  HISTORY.MAILINGID,
+  CHANNELCODE.DESCRIPTION as CHANNEL,
+  HISTORY.BASECURRENCYID,
+  HISTORY.BASEEXCHANGERATEID,
+  HISTORY.ORGANIZATIONAMOUNT,
+  HISTORY.ORGANIZATIONEXCHANGERATEID,
+  HISTORY.TRANSACTIONAMOUNT,
+  HISTORY.TRANSACTIONCURRENCYID,
+  CHANNELCODE.ID as CHANNELCODEID
+from dbo.RECURRINGGIFTAMENDMENT as HISTORY
+left join dbo.CHANNELCODE on CHANNELCODE.ID = HISTORY.CHANNELCODEID
+where HISTORY.AMENDMENTTYPECODE = 0
+      ]]>
+    </ViewSQL>
+  </ViewImplementation>
+  <Output>
+    <OutputFields>
+      <OutputField Caption="System record ID" Category="System Fields" Name="ID" CaptionResourceKey="$$system_record_id" CategoryResourceKey="$$system_fields" />
+      <OutputField Name="REVENUEID" IsHidden="true" />
+      <OutputField Name="TRANSACTIONDATE" Caption="Transaction date" CaptionResourceKey="$$transaction_date" />
+      <OutputField Name="AMOUNT" Caption="Amount" CaptionResourceKey="$$amount">
+        <CurrencyField CurrencyFieldID="BASECURRENCYID" />
+      </OutputField>
+      <OutputField Name="FREQUENCY" Caption="Frequency" CaptionResourceKey="$$frequency" />
+      <OutputField Name="PAYMENTMETHOD" Caption="Payment method" CaptionResourceKey="$$payment_method" />
+      <OutputField Name="SOURCECODE" Caption="Source" CaptionResourceKey="$$source" />
+      <OutputField Name="FINDERNUMBER" Caption="Finder number" CaptionResourceKey="$$finder_number" />
+      <OutputField Name="APPEALID" IsHidden="true" />
+      <OutputField Name="MAILINGID" IsHidden="true" />
+      <OutputField Name="CHANNEL" Caption="Inbound channel" CaptionResourceKey="$$inbound_channel">
+        <LookupInfo IDField="CHANNELCODEID">
+          <CodeTable CodeTableName="CHANNELCODE" IncludeInactive="true" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="BASECURRENCYID" DataType="Guid" Caption="Base currency ID" IsHidden="true" CaptionResourceKey="$$base_currency_id">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="BASEEXCHANGERATEID" DataType="Guid" Caption="Base exchange rate" IsHidden="true" CaptionResourceKey="$$base_exchange_rate">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="ORGANIZATIONAMOUNT" DataType="Money" Caption="Amount (organization currency)" CaptionResourceKey="$$amount_(organization_currency)">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="ORGANIZATIONEXCHANGERATEID" DataType="Guid" Caption="Organization exchange rate" IsHidden="true" CaptionResourceKey="$$organization_exchange_rate">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="TRANSACTIONAMOUNT" DataType="Money" Caption="Amount (transaction currency)" CaptionResourceKey="$$amount_(transaction_currency)">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+        <CurrencyField CurrencyFieldID="TRANSACTIONCURRENCYID" />
+      </OutputField>
+      <OutputField Name="TRANSACTIONCURRENCYID" DataType="Guid" Caption="Transaction currency ID" IsHidden="true" CaptionResourceKey="$$transaction_currency_id">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="CHANNELCODEID" Caption="Channel code ID" DataType="Guid" IsHidden="true" CaptionResourceKey="$$channel_code_id" />
+    </OutputFields>
+  </Output>
+  <RelationshipOperations>
+    <AddToParentView PathAlias="Recurring Gift Origin (AIA)" ParentView="V_QUERY_REVENUE" Field="REVENUEID" ParentViewRelatedField="ID" />
+    <AddRelatedView PathAlias="Appeal" RelatedView="V_QUERY_APPEAL" Field="APPEALID" RelatedField="ID" DisplayAliasResourceKey="$$appeal" />
+    <AddRelatedView PathAlias="Mailing" RelatedView="V_QUERY_MKTSEGMENTATION" Field="MAILINGID" RelatedField="ID" DisplayAliasResourceKey="$$mailing" />
+    <AddRelatedView Field="BASEEXCHANGERATEID" RelatedView="V_QUERY_CURRENCYEXCHANGERATE" RelatedField="ID" PathAlias="Base Exchange Rate" DisplayAliasResourceKey="$$base_exchange_rate0" />
+    <AddRelatedView Field="ORGANIZATIONEXCHANGERATEID" RelatedView="V_QUERY_CURRENCYEXCHANGERATE" RelatedField="ID" PathAlias="Organization Exchange Rate" DisplayAliasResourceKey="$$organization_exchange_rate0" />
+    <AddRelatedView Field="BASECURRENCYID" RelatedView="V_QUERY_CURRENCY" RelatedField="ID" PathAlias="Base Currency" DisplayAliasResourceKey="$$base_currency" />
+    <AddRelatedView Field="TRANSACTIONCURRENCYID" RelatedView="V_QUERY_CURRENCY" RelatedField="ID" PathAlias="Transaction Currency" DisplayAliasResourceKey="$$transaction_currency" />
+  </RelationshipOperations>
+</QueryViewSpec>

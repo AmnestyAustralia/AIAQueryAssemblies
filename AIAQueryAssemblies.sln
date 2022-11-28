@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIARollingDates", "AIARolli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIADateParts", "AIADateParts\AIADateParts.csproj", "{4F40210A-3072-43AF-962A-094388EDCDD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIARevenueQuery", "AIARevenueQuery\AIARevenueQuery.csproj", "{AA6FDC3D-2079-4F79-A79D-60CDD044655A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4F40210A-3072-43AF-962A-094388EDCDD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F40210A-3072-43AF-962A-094388EDCDD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F40210A-3072-43AF-962A-094388EDCDD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6FDC3D-2079-4F79-A79D-60CDD044655A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6FDC3D-2079-4F79-A79D-60CDD044655A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6FDC3D-2079-4F79-A79D-60CDD044655A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6FDC3D-2079-4F79-A79D-60CDD044655A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
