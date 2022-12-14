@@ -2,7 +2,7 @@
     xmlns="bb_appfx_package"
     xmlns:c="bb_appfx_commontypes"
     ID="e0518679-5e19-429d-9526-59b2c76aa5ff"
-    Name="AIA Package Revnue query"
+    Name="AIA Package Revenue query"
     Description="A package defining specs related to revenue queries"
     Author="Danny Smith (AIA)"
     >
