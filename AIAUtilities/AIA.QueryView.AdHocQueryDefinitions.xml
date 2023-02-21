@@ -1,0 +1,96 @@
+﻿<QueryViewSpec
+  xmlns="bb_appfx_queryview"
+  xmlns:c="bb_appfx_commontypes" 
+  ID="63555da4-a4a2-4c9c-96ab-7211126b1812"
+  Name="Ad-hoc Query Columns (AIA)"
+  Description="A custom view for querying details of ad-hoc query definition columns."
+	Author="Danny Smith (AIA)"
+  IsRoot="false"
+  PrimaryKeyField="ID"
+  RecordType="Ad-hoc Query"
+  c:SecurityUIFolder="Query\Ad-hoc Query"
+  >
+
+  <!-- define the view used to return data for the query -->
+  <ViewImplementation ViewName="USR_AIA_V_QUERY_ADHOCQUERY_COLUMNS">
+    <ViewSQL>
+      <![CDATA[
+SELECT
+a.ID ID,
+'Select' COLUMNUSAGE,
+node.value('@DisplayPath[1]', 'nvarchar(max)') COLUMNQUERYNODEPATH,
+node.value('@ObjectName[1]', 'nvarchar(max)') COLUMNOBJECTNAME,
+node.value('@ColumnName[1]', 'nvarchar(max)') COLUMNNAME,
+ISNULL(v.COLUMNDISPLAYNAME, node.value('@ColumnName[1]', 'nvarchar(max)')) COLUMNDISPLAYNAME,
+node.value('@FilterOperator[1]', 'nvarchar(max)') FILTEROPERATOR,
+node.value('@CompareType[1]', 'nvarchar(max)') FILTERTYPE,
+node.value('(./*:Values/*:v)[1]', 'nvarchar(max)') FILTERVALUERAW,
+node.value('(./*:TranslatedValues/*:v)[1]', 'nvarchar(max)') FILTERVALUE,
+(select top 1 displayname from queryviewcatalog q where q.objectname =  node.value('@ObjectName[1]', 'nvarchar(max)'))  COLUMNREFERENCESQUERYVIEW
+ 
+FROM ADHOCQUERY a
+CROSS APPLY QUERYDEFINITIONXML.nodes('/*:AdHocQuery/*:SelectFields/*:f') t(node)
+LEFT JOIN (
+  SELECT valnode.value('@Caption[1]', 'nvarchar(max)') COLUMNDISPLAYNAME, valnode.value('@Name[1]', 'nvarchar(max)') COLUMNNAME, OBJECTNAME
+  FROM QUERYVIEWCATALOG
+  CROSS APPLY OUTPUTDEFINITIONXML.nodes('/*:QueryViewOutput/*:OutputFields/*:OutputField') t(valnode)
+) v ON v.objectname = node.value('@ObjectName[1]', 'nvarchar(max)') AND v.COLUMNNAME = node.value('@ColumnName[1]', 'nvarchar(max)') 
+ 
+union all
+
+SELECT
+a.ID ID,
+'Filter' COLUMNUSAGE,
+node.value('@DisplayPath[1]', 'nvarchar(max)') COLUMNQUERYNODEPATH,
+node.value('@ObjectName[1]', 'nvarchar(max)') COLUMNOBJECTNAME,
+node.value('@ColumnName[1]', 'nvarchar(max)') COLUMNNAME,
+ISNULL(v.COLUMNDISPLAYNAME, node.value('@ColumnName[1]', 'nvarchar(max)')) COLUMNDISPLAYNAME,
+ISNULL(node.value('@FilterOperator[1]', 'nvarchar(max)'), 'IsEqualTo') FILTEROPERATOR,
+node.value('@CompareType[1]', 'nvarchar(max)') FILTERTYPE,
+node.value('(./*:Values/*:v)[1]', 'nvarchar(max)') FILTERVALUERAW,
+ISNULL(node.value('(./*:TranslatedValues/*:v)[1]', 'nvarchar(max)'), node.value('(./*:Values/*:v)[1]', 'nvarchar(max)')) FILTERVALUE,
+(select top 1 displayname from queryviewcatalog q where q.objectname = node.value('@ObjectName[1]', 'nvarchar(max)')) COLUMNREFERENCESQUERYVIEW
+
+FROM ADHOCQUERY a
+CROSS APPLY QUERYDEFINITIONXML.nodes('/*:AdHocQuery/*:FilterFields/*:f') t(node)
+LEFT JOIN (
+  SELECT valnode.value('@Caption[1]', 'nvarchar(max)') COLUMNDISPLAYNAME, valnode.value('@Name[1]', 'nvarchar(max)') COLUMNNAME, OBJECTNAME
+  FROM QUERYVIEWCATALOG
+  CROSS APPLY OUTPUTDEFINITIONXML.nodes('/*:QueryViewOutput/*:OutputFields/*:OutputField') t(valnode)
+) v ON v.objectname = node.value('@ObjectName[1]', 'nvarchar(max)') AND v.COLUMNNAME = node.value('@ColumnName[1]', 'nvarchar(max)') 
+      ]]>
+    </ViewSQL>
+  </ViewImplementation>
+
+  <!-- describe each field in the view output -->
+  <Output>
+    <OutputFields>
+      <OutputField Name="ID" Caption="System record ID" Category="System Fields" IsHidden="true" />
+      <OutputField Name="COLUMNNAME" Caption="Name" />
+      <OutputField Name="COLUMNDISPLAYNAME" Caption="Display name" />
+      <OutputField Name="COLUMNUSAGE" Caption="Usage">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Select" />
+              <c:TranslationListOption Value="Filter" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="COLUMNREFERENCESQUERYVIEW" Caption="Query node display name" Category="Column query node" />
+      <OutputField Name="COLUMNOBJECTNAME" Caption="Query node table name" Category="Column query node" />
+      <OutputField Name="COLUMNQUERYNODEPATH" Caption="Query node full path" Category="Column query node" />
+      <OutputField Name="FILTEROPERATOR" Caption="Comparison operator" Category="Filter value" />
+      <OutputField Name="FILTERTYPE" Caption="Comparison type" Category="Filter value" />
+      <OutputField Name="FILTERVALUERAW" Caption="Value (raw)" Category="Filter value" />
+      <OutputField Name="FILTERVALUE" Caption="Value (translated)" Category="Filter value" />
+    </OutputFields>
+  </Output>
+
+  <RelationshipOperations>
+    <AddToParentView Field="ID" ParentView="V_QUERY_ADHOCQUERY" ParentViewRelatedField="ID" PathAlias="Ad-hoc Query Columns (AIA)"/>
+  </RelationshipOperations>
+
+</QueryViewSpec>
+
