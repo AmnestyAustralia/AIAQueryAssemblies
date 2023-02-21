@@ -79,7 +79,7 @@
     </OutputFields>
   </Output>
   <RelationshipOperations>
-    <AddToParentView Field="CONSTITUENTID" ParentView="V_QUERY_CONSTITUENT" ParentViewRelatedField="ID" PathAlias="Prospect Plan Participant" />
+    <AddToParentView Field="CONSTITUENTID" ParentView="V_QUERY_CONSTITUENT" ParentViewRelatedField="ID" PathAlias="Prospect Plan Participant (AIA)" />
     <AddRelatedView RelatedView="V_QUERY_PROSPECTPLAN" RelatedField="ID" Field="PROSPECTPLANID" PathAlias="Prospect Plans" DisplayAliasResourceKey="$$prospect_plans" />
   </RelationshipOperations>
 </QueryViewSpec>
