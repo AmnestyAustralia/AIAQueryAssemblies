@@ -91,6 +91,10 @@ SELECT
   cast(DATEADD(week, -6, (GETDATE())) as date) as WeeksAgo6,
   cast(DATEADD(week, -7, (GETDATE())) as date) as WeeksAgo7,
   cast(DATEADD(week, -8, (GETDATE())) as date) as WeeksAgo8,
+  cast(DATEADD(week, -9, (GETDATE())) as date) as WeeksAgo9,
+  cast(DATEADD(week, -10, (GETDATE())) as date) as WeeksAgo10,
+  cast(DATEADD(week, -11, (GETDATE())) as date) as WeeksAgo11,
+  cast(DATEADD(week, -12, (GETDATE())) as date) as WeeksAgo12,
   cast(DATEADD(month, -1, (GETDATE())) as date) as MonthsAgo1,
   cast(DATEADD(month, -2, (GETDATE())) as date) as MonthsAgo2,
   cast(DATEADD(month, -3, (GETDATE())) as date) as MonthsAgo3,
@@ -195,14 +199,18 @@ FROM
       <OutputField Name="DaysAgo29" Caption="Days Ago 29" DataType="Date" />
       <OutputField Name="DaysAgo30" Caption="Days Ago 30" DataType="Date" />
       <OutputField Name="DaysAgo31" Caption="Days Ago 31" DataType="Date" />
-      <OutputField Name="WeeksAgo1" Caption="Weeks Ago 1" DataType="Date" />
-      <OutputField Name="WeeksAgo2" Caption="Weeks Ago 2" DataType="Date" />
-      <OutputField Name="WeeksAgo3" Caption="Weeks Ago 3" DataType="Date" />
-      <OutputField Name="WeeksAgo4" Caption="Weeks Ago 4" DataType="Date" />
-      <OutputField Name="WeeksAgo5" Caption="Weeks Ago 5" DataType="Date" />
-      <OutputField Name="WeeksAgo6" Caption="Weeks Ago 6" DataType="Date" />
-      <OutputField Name="WeeksAgo7" Caption="Weeks Ago 7" DataType="Date" />
-      <OutputField Name="WeeksAgo8" Caption="Weeks Ago 8" DataType="Date" />
+      <OutputField Name="WeeksAgo1" Caption="Weeks Ago 01" DataType="Date" />
+      <OutputField Name="WeeksAgo2" Caption="Weeks Ago 02" DataType="Date" />
+      <OutputField Name="WeeksAgo3" Caption="Weeks Ago 03" DataType="Date" />
+      <OutputField Name="WeeksAgo4" Caption="Weeks Ago 04" DataType="Date" />
+      <OutputField Name="WeeksAgo5" Caption="Weeks Ago 05" DataType="Date" />
+      <OutputField Name="WeeksAgo6" Caption="Weeks Ago 06" DataType="Date" />
+      <OutputField Name="WeeksAgo7" Caption="Weeks Ago 07" DataType="Date" />
+      <OutputField Name="WeeksAgo8" Caption="Weeks Ago 08" DataType="Date" />
+      <OutputField Name="WeeksAgo9" Caption="Weeks Ago 09" DataType="Date" />
+      <OutputField Name="WeeksAgo10" Caption="Weeks Ago 10" DataType="Date" />
+      <OutputField Name="WeeksAgo11" Caption="Weeks Ago 11" DataType="Date" />
+      <OutputField Name="WeeksAgo12" Caption="Weeks Ago 12" DataType="Date" />
       <OutputField Name="MonthsAgo1" Caption="Months Ago 01" DataType="Date" />
       <OutputField Name="MonthsAgo2" Caption="Months Ago 02" DataType="Date" />
       <OutputField Name="MonthsAgo3" Caption="Months Ago 03" DataType="Date" />
