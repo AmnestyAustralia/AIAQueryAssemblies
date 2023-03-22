@@ -1,0 +1,349 @@
+﻿<QueryViewSpec
+  xmlns="bb_appfx_queryview"
+  xmlns:c="bb_appfx_commontypes" 
+  ID="afaf5f53-2deb-4e32-86b4-e75ed3c441ce"
+  Name="Recurring Gift Amendments (AIA)"
+  Description="Query to retrieve details of amendments to recurring gifts"
+  Author="Danny Smith (AIA)"
+  IsRoot="false"
+  PrimaryKeyField="ID"
+  RecordType="Recurring Gift Revenue Function History"
+  c:SecurityUIFolder="Revenue\Recurring Gifts"
+  >
+
+  <ViewImplementation ViewName="USR_AIA_V_QUERY_RECURRINGGIFTAMENDMENT">
+    <ViewSQL>
+      <![CDATA[
+select
+  HISTORY.ID,
+  HISTORY.FINANCIALTRANSACTIONID as REVENUEID,
+  HISTORY.AMENDMENTTYPE,
+  REVENUEDEVELOPMENTFUNCTIONCODE.DESCRIPTION as DEVELOPMENTFUNCTION,
+  HISTORY.DATE as TRANSACTIONDATE,
+
+  HISTORY.TRANSACTIONAMOUNT as AMOUNT,
+  HISTORY.FREQUENCY,
+  HISTORY.PREVIOUSTRANSACTIONAMOUNT as PREVIOUSAMOUNT,
+  HISTORY.PREVIOUSFREQUENCY,
+  HISTORY.TRANSACTIONAMOUNTCHANGE as AMOUNTCHANGE,
+  HISTORY.PAYMENTMETHOD,
+  HISTORY.PREVIOUSPAYMENTMETHOD,
+  HISTORY.STATUS,
+  HISTORY.PREVIOUSSTATUS,
+  HISTORY.STATUSCHANGETYPE,
+  RECURRINGGIFTSTATUSREASONCODE.CODE as RECURRINGGIFTSTATUSREASONCODE,
+  RECURRINGGIFTSTATUSREASONCODE.DESCRIPTION as RECURRINGGIFTSTATUSREASONDESCRIPTION,
+
+  HISTORY.SOURCECODE,
+  HISTORY.FINDERNUMBER,
+  HISTORY.APPEALID,
+  HISTORY.MAILINGID,
+  CHANNELCODE.DESCRIPTION as CHANNEL,
+
+  HISTORY.BASECURRENCYID,
+  HISTORY.BASEEXCHANGERATEID,
+  HISTORY.PREVIOUSBASEEXCHANGERATEID,
+  HISTORY.ORGANIZATIONAMOUNT,
+  HISTORY.PREVIOUSORGANIZATIONAMOUNT,
+  HISTORY.ORGANIZATIONEXCHANGERATEID,
+  HISTORY.PREVIOUSORGANIZATIONEXCHANGERATEID,
+  HISTORY.TRANSACTIONAMOUNT,
+  HISTORY.PREVIOUSTRANSACTIONAMOUNT,
+  HISTORY.TRANSACTIONCURRENCYID,
+  HISTORY.TRANSACTIONAMOUNTCHANGE,
+  HISTORY.ORGANIZATIONAMOUNTCHANGE,
+
+  CHANNELCODE.ID as CHANNELCODEID,
+  REVENUEDEVELOPMENTFUNCTIONCODE.ID as REVENUEDEVELOPMENTFUNCTIONCODEID,
+
+  ADDEDBY.APPLICATIONNAME as [ADDEDBY_APPLICATION],
+  ADDEDBY.USERNAME as [ADDEDBY_USERNAME],
+  CHANGEDBY.APPLICATIONNAME as [CHANGEDBY_APPLICATION],
+  CHANGEDBY.USERNAME as [CHANGEDBY_USERNAME],
+  HISTORY.DATEADDED,
+  HISTORY.DATECHANGED,
+  HISTORY.TSLONG
+from dbo.RECURRINGGIFTAMENDMENT as HISTORY
+left join dbo.REVENUEDEVELOPMENTFUNCTION on REVENUEDEVELOPMENTFUNCTION.ID = HISTORY.REVENUEDEVELOPMENTFUNCTIONID
+left join dbo.REVENUEDEVELOPMENTFUNCTIONCODE on REVENUEDEVELOPMENTFUNCTIONCODE.ID = REVENUEDEVELOPMENTFUNCTION.REVENUEDEVELOPMENTFUNCTIONCODEID
+left join dbo.RECURRINGGIFTSTATUSREASONCODE on HISTORY.RECURRINGGIFTSTATUSREASONCODEID = RECURRINGGIFTSTATUSREASONCODE.ID
+left join dbo.CHANNELCODE on CHANNELCODE.ID = HISTORY.CHANNELCODEID
+left join dbo.CHANGEAGENT as ADDEDBY with (nolock) on ADDEDBY.ID = HISTORY.ADDEDBYID
+left join dbo.CHANGEAGENT as CHANGEDBY with (nolock) on CHANGEDBY.ID = HISTORY.CHANGEDBYID
+      ]]>
+    </ViewSQL>
+  </ViewImplementation>
+
+  <Output>
+    <OutputFields>
+      <OutputField Caption="System record ID" Category="System Fields" Name="ID" CaptionResourceKey="$$system_record_id" CategoryResourceKey="$$system_fields" />
+      <OutputField Name="REVENUEID" IsHidden="true" />
+      <OutputField Name="AMENDMENTTYPE" Caption="Amendment type">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Added" />
+              <c:TranslationListOption Value="Status changed" />
+              <c:TranslationListOption Value="Edited" />
+              <c:TranslationListOption Value="Payment information changed" />
+              <c:TranslationListOption Value="Constituent changed" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="DEVELOPMENTFUNCTION" Caption="Revenue function" CaptionResourceKey="$$revenue_function">
+        <LookupInfo IDField="REVENUEDEVELOPMENTFUNCTIONCODEID">
+          <CodeTable CodeTableName="REVENUEDEVELOPMENTFUNCTIONCODE" IncludeInactive="true" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="TRANSACTIONDATE" Caption="Transaction date" CaptionResourceKey="$$transaction_date" />
+      <OutputField Name="AMOUNT" Category="Change - financial" Caption="New amount" CaptionResourceKey="$$new_amount">
+        <CurrencyField CurrencyFieldID="BASECURRENCYID" />
+      </OutputField>
+      <OutputField Name="FREQUENCY" Category="Change - financial" Caption="New frequency" CaptionResourceKey="$$new_frequency">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Annually" />
+              <c:TranslationListOption Value="Semi-annually" />
+              <c:TranslationListOption Value="Quarterly" />
+              <c:TranslationListOption Value="Monthly" />
+              <c:TranslationListOption Value="Every 4 weeks" />
+              <c:TranslationListOption Value="Irregular" />
+              <c:TranslationListOption Value="Single Installment" />
+              <c:TranslationListOption Value="Bimonthly" />
+              <c:TranslationListOption Value="Semi-Monthly" />
+              <c:TranslationListOption Value="Biweekly" />
+              <c:TranslationListOption Value="Weekly" />
+              <c:TranslationListOption Value="Not applicable" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="PREVIOUSAMOUNT" Category="Change - financial" Caption="Previous amount" CaptionResourceKey="$$previous_amount">
+        <CurrencyField CurrencyFieldID="BASECURRENCYID" />
+      </OutputField>
+      <OutputField Name="PREVIOUSFREQUENCY" Category="Change - financial" Caption="Previous frequency" CaptionResourceKey="$$previous_frequency">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Annually" />
+              <c:TranslationListOption Value="Semi-annually" />
+              <c:TranslationListOption Value="Quarterly" />
+              <c:TranslationListOption Value="Monthly" />
+              <c:TranslationListOption Value="Every 4 weeks" />
+              <c:TranslationListOption Value="Irregular" />
+              <c:TranslationListOption Value="Single Installment" />
+              <c:TranslationListOption Value="Bimonthly" />
+              <c:TranslationListOption Value="Semi-Monthly" />
+              <c:TranslationListOption Value="Biweekly" />
+              <c:TranslationListOption Value="Weekly" />
+              <c:TranslationListOption Value="Not applicable" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="AMOUNTCHANGE" Category="Change - financial" Caption="Amount change" CaptionResourceKey="$$amount_change">
+        <CurrencyField CurrencyFieldID="BASECURRENCYID" />
+      </OutputField>
+      <OutputField Name="PAYMENTMETHOD" Category="Change - financial" Caption="New payment method" CaptionResourceKey="$new_payment_method">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Cash" />
+              <c:TranslationListOption Value="Check" />
+              <c:TranslationListOption Value="Credit card - automatic" />
+              <c:TranslationListOption Value="Credit card - last 4 digits" />
+              <c:TranslationListOption Value="Direct debit - automatic" />
+              <c:TranslationListOption Value="Standing order" />
+              <c:TranslationListOption Value="None" />
+              <c:TranslationListOption Value="Other" />
+              <c:TranslationListOption Value="Not applicable" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="PREVIOUSPAYMENTMETHOD" Category="Change - financial" Caption="Previous payment method" CaptionResourceKey="$$previous_payment_method">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Cash" />
+              <c:TranslationListOption Value="Check" />
+              <c:TranslationListOption Value="Credit card - automatic" />
+              <c:TranslationListOption Value="Credit card - last 4 digits" />
+              <c:TranslationListOption Value="Direct debit - automatic" />
+              <c:TranslationListOption Value="Standing order" />
+              <c:TranslationListOption Value="None" />
+              <c:TranslationListOption Value="Other" />
+              <c:TranslationListOption Value="Not applicable" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="STATUS" Category="Change - status" Caption="New status" CaptionResourceKey="$new_status">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Active" />
+              <c:TranslationListOption Value="Held" />
+              <c:TranslationListOption Value="Terminated" />
+              <c:TranslationListOption Value="Canceled" />
+              <c:TranslationListOption Value="Lapsed" />
+              <c:TranslationListOption Value="Not applicable" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="PREVIOUSSTATUS" Category="Change - status" Caption="Previous status" CaptionResourceKey="$previous_status">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Active" />
+              <c:TranslationListOption Value="Held" />
+              <c:TranslationListOption Value="Terminated" />
+              <c:TranslationListOption Value="Canceled" />
+              <c:TranslationListOption Value="Lapsed" />
+              <c:TranslationListOption Value="Not applicable" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="STATUSCHANGETYPE" Category="Change - status" Caption="Status change type" CaptionResourceKey="$status_change_type">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Manual" />
+              <c:TranslationListOption Value="Payment applied" />
+              <c:TranslationListOption Value="Payment deleted or decreased" />
+              <c:TranslationListOption Value="Write-off added" />
+              <c:TranslationListOption Value="Write-off deleted or decreased" />
+              <c:TranslationListOption Value="Skip undone" />
+              <c:TranslationListOption Value="Changed by Status Update Process" />
+              <c:TranslationListOption Value="No remaining balance" />
+              <c:TranslationListOption Value="Schedule changed" />
+              <c:TranslationListOption Value="Sponsorship canceled" />
+              <c:TranslationListOption Value="Sponsorship expired" />
+              <c:TranslationListOption Value="Sponsorship reactivated" />
+              <c:TranslationListOption Value="Sponsorship reassigned" />
+              <c:TranslationListOption Value="Sponsorship terminated" />
+              <c:TranslationListOption Value="Membership canceled" />
+              <c:TranslationListOption Value="Not applicable" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="RECURRINGGIFTSTATUSREASONCODE" Category="Change - status" Caption="Status change reason" DataType="String" CaptionResourceKey="$$status_change_reason" />
+      <OutputField Name="RECURRINGGIFTSTATUSREASONDESCRIPTION" Category="Change - status" Caption="Status change reason description" DataType="String" CaptionResourceKey="$$status_change_reason_description" />
+      <OutputField Name="SOURCECODE" Caption="Source" CaptionResourceKey="$$source" />
+      <OutputField Name="FINDERNUMBER" Caption="Finder number" CaptionResourceKey="$$finder_number" />
+      <OutputField Name="APPEALID" IsHidden="true" />
+      <OutputField Name="MAILINGID" IsHidden="true" />
+      <OutputField Name="CHANNEL" Caption="Inbound channel" CaptionResourceKey="$$inbound_channel">
+        <LookupInfo IDField="CHANNELCODEID">
+          <CodeTable CodeTableName="CHANNELCODE" IncludeInactive="true" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="BASECURRENCYID" DataType="Guid" Caption="Base currency ID" IsHidden="true" CaptionResourceKey="$$base_currency_id">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="BASEEXCHANGERATEID" DataType="Guid" Caption="New base exchange rate" IsHidden="true" CaptionResourceKey="$$new_base_exchange_rate">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="PREVIOUSBASEEXCHANGERATEID" DataType="Guid" Caption="Previous base exchange rate" IsHidden="true" CaptionResourceKey="$$previous_base_exchange_rate">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="ORGANIZATIONAMOUNT" DataType="Money" Caption="New amount (organization currency)" CaptionResourceKey="$$new_amount_(organization_currency)">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="PREVIOUSORGANIZATIONAMOUNT" DataType="Money" Caption="Previous amount (organization currency)" CaptionResourceKey="$$previous_amount_(organization_currency)">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="ORGANIZATIONEXCHANGERATEID" DataType="Guid" Caption="New organization exchange rate" IsHidden="true" CaptionResourceKey="$$new_organization_exchange_rate">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="PREVIOUSORGANIZATIONEXCHANGERATEID" DataType="Guid" Caption="Previous organization exchange rate" IsHidden="true" CaptionResourceKey="$$previous_organization_exchange_rate">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="TRANSACTIONAMOUNT" DataType="Money" Caption="New amount (transaction currency)" CaptionResourceKey="$$new_amount_(transaction_currency)">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+        <CurrencyField CurrencyFieldID="TRANSACTIONCURRENCYID" />
+      </OutputField>
+      <OutputField Name="PREVIOUSTRANSACTIONAMOUNT" DataType="Money" Caption="Previous amount (transaction currency)" CaptionResourceKey="$$previous_amount_(transaction_currency)">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+        <CurrencyField CurrencyFieldID="TRANSACTIONCURRENCYID" />
+      </OutputField>
+      <OutputField Name="TRANSACTIONCURRENCYID" DataType="Guid" Caption="Transaction currency ID" IsHidden="true" CaptionResourceKey="$$transaction_currency_id">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="TRANSACTIONAMOUNTCHANGE" Caption="Amount change (transaction currency)" CaptionResourceKey="$$amount_change_(transaction_currency)">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+        <CurrencyField CurrencyFieldID="TRANSACTIONCURRENCYID" />
+      </OutputField>
+      <OutputField Name="ORGANIZATIONAMOUNTCHANGE" Caption="Amount change (organization currency)" CaptionResourceKey="$$amount_change_(organization_currency)">
+        <OutputFieldHiddenCondition>
+          <c:DoesNotExistCondition Key="Multicurrency" />
+        </OutputFieldHiddenCondition>
+      </OutputField>
+      <OutputField Name="CHANNELCODEID" Caption="Channel code ID" DataType="Guid" IsHidden="true" CaptionResourceKey="$$channel_code_id" />
+      <OutputField Name="REVENUEDEVELOPMENTFUNCTIONCODEID" Caption="Revenue function code ID" DataType="Guid" IsHidden="true" CaptionResourceKey="$$revenue_function_code_id" />
+      <OutputField Caption="Added by application" Category="System Fields" Name="ADDEDBY_APPLICATION" CaptionResourceKey="$$added_by_application" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SimpleDataList SimpleDataListID="37E3E458-AF0D-4dbc-8A18-A93885521A42" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Caption="Added by user name" Category="System Fields" Name="ADDEDBY_USERNAME" CaptionResourceKey="$$added_by_user_name" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SimpleDataList SimpleDataListID="CEA15E1C-E455-41be-9ECF-6B5453FA96A4" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Caption="Changed by application" Category="System Fields" Name="CHANGEDBY_APPLICATION" CaptionResourceKey="$$changed_by_application" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SimpleDataList SimpleDataListID="37E3E458-AF0D-4dbc-8A18-A93885521A42" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Caption="Changed by user name" Category="System Fields" Name="CHANGEDBY_USERNAME" CaptionResourceKey="$$changed_by_user_name" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SimpleDataList SimpleDataListID="CEA15E1C-E455-41be-9ECF-6B5453FA96A4" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Caption="Date added" Category="System Fields" Name="DATEADDED" CaptionResourceKey="$$date_added" CategoryResourceKey="$$system_fields" />
+      <OutputField Caption="Date changed" Category="System Fields" Name="DATECHANGED" CaptionResourceKey="$$date_changed" CategoryResourceKey="$$system_fields" />
+      <OutputField Caption="Timestamp value" Category="System Fields" IsHidden="true" Name="TSLONG" />
+    </OutputFields>
+  </Output>
+  <RelationshipOperations>
+    <AddToParentView PathAlias="Recurring Gift Amendments (AIA)" ParentView="V_QUERY_REVENUE" Field="REVENUEID" ParentViewRelatedField="ID" />
+    <AddRelatedView PathAlias="Appeal" RelatedView="V_QUERY_APPEAL" Field="APPEALID" RelatedField="ID" DisplayAliasResourceKey="$$appeal" />
+    <AddRelatedView PathAlias="Mailing" RelatedView="V_QUERY_MKTSEGMENTATION" Field="MAILINGID" RelatedField="ID" DisplayAliasResourceKey="$$mailing" />
+    <AddRelatedView Field="BASEEXCHANGERATEID" RelatedView="V_QUERY_CURRENCYEXCHANGERATE" RelatedField="ID" PathAlias="New Base Exchange Rate" DisplayAliasResourceKey="$$new_base_exchange_rate0" />
+    <AddRelatedView Field="PREVIOUSBASEEXCHANGERATEID" RelatedView="V_QUERY_CURRENCYEXCHANGERATE" RelatedField="ID" PathAlias="Previous Base Exchange Rate" DisplayAliasResourceKey="$$previous_base_exchange_rate0" />
+    <AddRelatedView Field="ORGANIZATIONEXCHANGERATEID" RelatedView="V_QUERY_CURRENCYEXCHANGERATE" RelatedField="ID" PathAlias="New Organization Exchange Rate" DisplayAliasResourceKey="$$new_organization_exchange_rate0" />
+    <AddRelatedView Field="PREVIOUSORGANIZATIONEXCHANGERATEID" RelatedView="V_QUERY_CURRENCYEXCHANGERATE" RelatedField="ID" PathAlias="Previous Organization Exchange Rate" DisplayAliasResourceKey="$$previous_organization_exchange_rate0" />
+    <AddRelatedView Field="BASECURRENCYID" RelatedView="V_QUERY_CURRENCY" RelatedField="ID" PathAlias="Base Currency" DisplayAliasResourceKey="$$base_currency" />
+    <AddRelatedView Field="TRANSACTIONCURRENCYID" RelatedView="V_QUERY_CURRENCY" RelatedField="ID" PathAlias="Transaction Currency" DisplayAliasResourceKey="$$transaction_currency" />
+  </RelationshipOperations>
+
+</QueryViewSpec>
+

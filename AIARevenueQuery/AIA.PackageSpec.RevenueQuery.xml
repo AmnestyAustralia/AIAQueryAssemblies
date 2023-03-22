@@ -9,6 +9,8 @@
 
   <c:DependencyList>
     <c:Dependency CatalogAssembly="AIARevenueQuery.dll" CatalogItem="AIARevenueQuery.AIA.QueryView.RecurringGiftOriginal.xml" />
+    <c:Dependency CatalogAssembly="AIARevenueQuery.dll" CatalogItem="AIARevenueQuery.AIA.QueryView.RecurringGiftAmendment.xml" />
+    <c:Dependency CatalogAssembly="AIARevenueQuery.dll" CatalogItem="AIARevenueQuery.AIA.QueryView.RecurringGiftInstallment.xml" />
   </c:DependencyList>
 
 </PackageSpec>

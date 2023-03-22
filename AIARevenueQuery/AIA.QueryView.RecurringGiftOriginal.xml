@@ -48,8 +48,41 @@ where HISTORY.AMENDMENTTYPECODE = 0
       <OutputField Name="AMOUNT" Caption="Amount" CaptionResourceKey="$$amount">
         <CurrencyField CurrencyFieldID="BASECURRENCYID" />
       </OutputField>
-      <OutputField Name="FREQUENCY" Caption="Frequency" CaptionResourceKey="$$frequency" />
-      <OutputField Name="PAYMENTMETHOD" Caption="Payment method" CaptionResourceKey="$$payment_method" />
+      <OutputField Name="FREQUENCY" Caption="Frequency" CaptionResourceKey="$$frequency">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Annually" />
+              <c:TranslationListOption Value="Semi-annually" />
+              <c:TranslationListOption Value="Quarterly" />
+              <c:TranslationListOption Value="Monthly" />
+              <c:TranslationListOption Value="Every 4 weeks" />
+              <c:TranslationListOption Value="Irregular" />
+              <c:TranslationListOption Value="Single Installment" />
+              <c:TranslationListOption Value="Bimonthly" />
+              <c:TranslationListOption Value="Semi-Monthly" />
+              <c:TranslationListOption Value="Biweekly" />
+              <c:TranslationListOption Value="Weekly" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="PAYMENTMETHOD" Caption="Payment method" CaptionResourceKey="$$payment_method">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Cash" />
+              <c:TranslationListOption Value="Check" />
+              <c:TranslationListOption Value="Credit card - automatic" />
+              <c:TranslationListOption Value="Credit card - last 4 digits" />
+              <c:TranslationListOption Value="Direct debit - automatic" />
+              <c:TranslationListOption Value="Standing order" />
+              <c:TranslationListOption Value="None" />
+              <c:TranslationListOption Value="Other" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
       <OutputField Name="SOURCECODE" Caption="Source" CaptionResourceKey="$$source" />
       <OutputField Name="FINDERNUMBER" Caption="Finder number" CaptionResourceKey="$$finder_number" />
       <OutputField Name="APPEALID" IsHidden="true" />
