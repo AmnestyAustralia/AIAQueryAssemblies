@@ -34,6 +34,12 @@ select
   RECURRINGGIFTSTATUSREASONCODE.CODE as RECURRINGGIFTSTATUSREASONCODE,
   RECURRINGGIFTSTATUSREASONCODE.DESCRIPTION as RECURRINGGIFTSTATUSREASONDESCRIPTION,
 
+  CASE WHEN CREDITTYPECODEID=PREVIOUSCREDITTYPECODEID OR (CREDITTYPECODEID IS NULL AND PREVIOUSCREDITTYPECODEID IS NULL) THEN 0 ELSE 1 END AS CCTYPECHANGE,
+  CASE WHEN CREDITCARDPARTIALNUMBER=PREVIOUSCREDITCARDPARTIALNUMBER OR (CREDITCARDPARTIALNUMBER IS NULL AND PREVIOUSCREDITCARDPARTIALNUMBER IS NULL) THEN 0 ELSE 1 END AS CCNUMBERCHANGE,
+  CASE WHEN CARDHOLDERNAME=PREVIOUSCARDHOLDERNAME OR (CARDHOLDERNAME IS NULL AND PREVIOUSCARDHOLDERNAME IS NULL) THEN 0 ELSE 1 END AS CCNAMECHANGE,
+  CASE WHEN EXPIRESON=PREVIOUSEXPIRESON OR (EXPIRESON IS NULL AND PREVIOUSEXPIRESON IS NULL) THEN 0 ELSE 1 END AS CCEXPIRYCHANGE,
+  CASE WHEN CONSTITUENTACCOUNTID=PREVIOUSCONSTITUENTACCOUNTID OR (CONSTITUENTACCOUNTID IS NULL AND PREVIOUSCONSTITUENTACCOUNTID IS NULL) THEN 0 ELSE 1 END AS DDACCOUNTCHANGE,
+
   HISTORY.SOURCECODE,
   HISTORY.FINDERNUMBER,
   HISTORY.APPEALID,
@@ -180,6 +186,11 @@ left join dbo.CHANGEAGENT as CHANGEDBY with (nolock) on CHANGEDBY.ID = HISTORY.C
           </TranslationList>
         </LookupInfo>
       </OutputField>
+      <OutputField Name="CCTYPECHANGE" Category="Change - payment details" Caption="Details changed - credit card type" DataType="Boolean" />
+      <OutputField Name="CCNUMBERCHANGE" Category="Change - payment details" Caption="Details changed - credit card number" DataType="Boolean" />
+      <OutputField Name="CCNAMECHANGE" Category="Change - payment details" Caption="Details changed - credit card cardholder name" DataType="Boolean" />
+      <OutputField Name="CCEXPIRYCHANGE" Category="Change - payment details" Caption="Details changed - credit card expiry" DataType="Boolean" />
+      <OutputField Name="DDACCOUNTCHANGE" Category="Change - payment details" Caption="Details changed - direct debit account" DataType="Boolean" />
       <OutputField Name="STATUS" Category="Change - status" Caption="New status" CaptionResourceKey="$new_status">
         <LookupInfo>
           <TranslationList>
