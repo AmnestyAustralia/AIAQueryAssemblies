@@ -13,7 +13,6 @@
 
   <!-- Adapted from a script by David Bourne (TWS) -->
 
-  <!-- define the view used to return data for the query -->
   <ViewImplementation ViewName="USR_AIA_V_QUERY_CONSTITUENT_ROLLING_DATES">
     <ViewSQL>
       <![CDATA[
@@ -129,7 +128,29 @@ SELECT
   cast(DATEADD(month, +3, (GETDATE())) as date) as MonthsAhead3,
   cast(DATEADD(month, +4, (GETDATE())) as date) as MonthsAhead4,
   cast(DATEADD(month, +5, (GETDATE())) as date) as MonthsAhead5,
-  cast(DATEADD(month, +6, (GETDATE())) as date) as MonthsAhead6
+  cast(DATEADD(month, +6, (GETDATE())) as date) as MonthsAhead6,
+
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE()), -1) as date) as ThisWeekDay1,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE()), 0) as date) as ThisWeekDay2,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE()), 1) as date) as ThisWeekDay3,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE()), 2) as date) as ThisWeekDay4,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE()), 3) as date) as ThisWeekDay5,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE()), 4) as date) as ThisWeekDay6,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE()), 5) as date) as ThisWeekDay7,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, -1) as date) as LastWeekDay1,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, 0) as date) as LastWeekDay2,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, 1) as date) as LastWeekDay3,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, 2) as date) as LastWeekDay4,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, 3) as date) as LastWeekDay5,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, 4) as date) as LastWeekDay6,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, 5) as date) as LastWeekDay7,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, -1) as date) as NextWeekDay1,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, 0) as date) as NextWeekDay2,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, 1) as date) as NextWeekDay3,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, 2) as date) as NextWeekDay4,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, 3) as date) as NextWeekDay5,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, 4) as date) as NextWeekDay6,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, 5) as date) as NextWeekDay7
 
 FROM 
   dbo.CONSTITUENT c
@@ -138,113 +159,134 @@ FROM
     </ViewSQL>
   </ViewImplementation>
 
-  <!-- describe each field in the view output -->
   <Output>
     <OutputFields>
-      <OutputField Name="ID" Caption="System record ID" Category="System Fields"  />
+      <OutputField Name="ID" Caption="System record ID" Category="System Fields" IsHidden="true" />
       <OutputField Name="Today" Caption="Today" DataType="Date" />
       <OutputField Name="Yesterday" Caption="Yesterday" DataType="Date" />
       <OutputField Name="Tomorrow" Caption="Tomorrow" DataType="Date" />
 
-      <OutputField Name="FirstDayofPreviousMonth" Caption="First Day of Previous Month" DataType="Date" />
-      <OutputField Name="LastDayofPreviousMonth" Caption="Last Day of Previous Month" DataType="Date" />
-      <OutputField Name="FirstDayofPreviousQuarter" Caption="First Day of Previous Quarter" DataType="Date" />
-      <OutputField Name="LastDayofPreviousQuarter" Caption="Last Day of Previous Quarter" DataType="Date" />
-      <OutputField Name="FirstDayofPreviousCalendarYear" Caption="First Day of Previous Calendar Year" DataType="Date" />
-      <OutputField Name="LastDayofPreviousCalendarYear" Caption="Last Day of Previous Calendar Year" DataType="Date" />
-      <OutputField Name="FirstDayofPreviousFiscalYear" Caption="First Day of Previous Fiscal Year" DataType="Date" />
-      <OutputField Name="LastDayofPreviousFiscalYear" Caption="Last Day of Previous Fiscal Year" DataType="Date" />
+      <OutputField Category="Period Previous" Name="FirstDayofPreviousMonth" Caption="First Day of Previous Month" DataType="Date" />
+      <OutputField Category="Period Previous" Name="LastDayofPreviousMonth" Caption="Last Day of Previous Month" DataType="Date" />
+      <OutputField Category="Period Previous" Name="FirstDayofPreviousQuarter" Caption="First Day of Previous Quarter" DataType="Date" />
+      <OutputField Category="Period Previous" Name="LastDayofPreviousQuarter" Caption="Last Day of Previous Quarter" DataType="Date" />
+      <OutputField Category="Period Previous" Name="FirstDayofPreviousCalendarYear" Caption="First Day of Previous Calendar Year" DataType="Date" />
+      <OutputField Category="Period Previous" Name="LastDayofPreviousCalendarYear" Caption="Last Day of Previous Calendar Year" DataType="Date" />
+      <OutputField Category="Period Previous" Name="FirstDayofPreviousFiscalYear" Caption="First Day of Previous Fiscal Year" DataType="Date" />
+      <OutputField Category="Period Previous" Name="LastDayofPreviousFiscalYear" Caption="Last Day of Previous Fiscal Year" DataType="Date" />
 
-      <OutputField Name="FirstDayofCurrentMonth" Caption="First Day of Current Month" DataType="Date" />
-      <OutputField Name="LastDayofCurrentMonth" Caption="Last Day of Current Month" DataType="Date" />
-      <OutputField Name="FirstDayofCurrentQuarter" Caption="First Day of Current Quarter" DataType="Date" />
-      <OutputField Name="LastDayofCurrentQuarter" Caption="Last Day of Current Quarter" DataType="Date" />
-      <OutputField Name="FirstDayofCurrentCalendarYear" Caption="First Day of Current Calendar Year" DataType="Date" />
-      <OutputField Name="LastDayofCurrentCalendarYear" Caption="Last Day of Current Calendar Year" DataType="Date" />
-      <OutputField Name="FirstDayofCurrentFiscalYear" Caption="First Day of Current Fiscal Year" DataType="Date" />
-      <OutputField Name="LastDayofCurrentFiscalYear" Caption="Last Day of Current Fiscal Year" DataType="Date" />
+      <OutputField Category="Period Current" Name="FirstDayofCurrentMonth" Caption="First Day of Current Month" DataType="Date" />
+      <OutputField Category="Period Current" Name="LastDayofCurrentMonth" Caption="Last Day of Current Month" DataType="Date" />
+      <OutputField Category="Period Current" Name="FirstDayofCurrentQuarter" Caption="First Day of Current Quarter" DataType="Date" />
+      <OutputField Category="Period Current" Name="LastDayofCurrentQuarter" Caption="Last Day of Current Quarter" DataType="Date" />
+      <OutputField Category="Period Current" Name="FirstDayofCurrentCalendarYear" Caption="First Day of Current Calendar Year" DataType="Date" />
+      <OutputField Category="Period Current" Name="LastDayofCurrentCalendarYear" Caption="Last Day of Current Calendar Year" DataType="Date" />
+      <OutputField Category="Period Current" Name="FirstDayofCurrentFiscalYear" Caption="First Day of Current Fiscal Year" DataType="Date" />
+      <OutputField Category="Period Current" Name="LastDayofCurrentFiscalYear" Caption="Last Day of Current Fiscal Year" DataType="Date" />
 
-      <OutputField Name="FirstDayofNextMonth" Caption="First Day of Next Month" DataType="Date" />
-      <OutputField Name="LastDayofNextMonth" Caption="Last Day of Next Month" DataType="Date" />
-      <OutputField Name="FirstDayofNextQuarter" Caption="First Day of Next Quarter" DataType="Date" />
-      <OutputField Name="LastDayofNextQuarter" Caption="Last Day of Next Quarter" DataType="Date" />
+      <OutputField Category="Period Next" Name="FirstDayofNextMonth" Caption="First Day of Next Month" DataType="Date" />
+      <OutputField Category="Period Next" Name="LastDayofNextMonth" Caption="Last Day of Next Month" DataType="Date" />
+      <OutputField Category="Period Next" Name="FirstDayofNextQuarter" Caption="First Day of Next Quarter" DataType="Date" />
+      <OutputField Category="Period Next" Name="LastDayofNextQuarter" Caption="Last Day of Next Quarter" DataType="Date" />
 
-      <OutputField Name="DaysAgo2" Caption="Days Ago 02" DataType="Date" />
-      <OutputField Name="DaysAgo3" Caption="Days Ago 03" DataType="Date" />      
-      <OutputField Name="DaysAgo4" Caption="Days Ago 04" DataType="Date" />
-      <OutputField Name="DaysAgo5" Caption="Days Ago 05" DataType="Date" />      
-      <OutputField Name="DaysAgo6" Caption="Days Ago 06" DataType="Date" />      
-      <OutputField Name="DaysAgo7" Caption="Days Ago 07" DataType="Date" />
-      <OutputField Name="DaysAgo8" Caption="Days Ago 08" DataType="Date" />
-      <OutputField Name="DaysAgo9" Caption="Days Ago 09" DataType="Date" />      
-      <OutputField Name="DaysAgo10" Caption="Days Ago 10" DataType="Date" />
-      <OutputField Name="DaysAgo11" Caption="Days Ago 11" DataType="Date" />
-      <OutputField Name="DaysAgo12" Caption="Days Ago 12" DataType="Date" />
-      <OutputField Name="DaysAgo13" Caption="Days Ago 13" DataType="Date" />
-      <OutputField Name="DaysAgo14" Caption="Days Ago 14" DataType="Date" />
-      <OutputField Name="DaysAgo15" Caption="Days Ago 15" DataType="Date" />
-      <OutputField Name="DaysAgo16" Caption="Days Ago 16" DataType="Date" />
-      <OutputField Name="DaysAgo17" Caption="Days Ago 17" DataType="Date" />
-      <OutputField Name="DaysAgo18" Caption="Days Ago 18" DataType="Date" />
-      <OutputField Name="DaysAgo19" Caption="Days Ago 19" DataType="Date" />
-      <OutputField Name="DaysAgo20" Caption="Days Ago 20" DataType="Date" />
-      <OutputField Name="DaysAgo21" Caption="Days Ago 21" DataType="Date" />
-      <OutputField Name="DaysAgo22" Caption="Days Ago 22" DataType="Date" />
-      <OutputField Name="DaysAgo23" Caption="Days Ago 23" DataType="Date" />
-      <OutputField Name="DaysAgo24" Caption="Days Ago 24" DataType="Date" />
-      <OutputField Name="DaysAgo25" Caption="Days Ago 25" DataType="Date" />
-      <OutputField Name="DaysAgo26" Caption="Days Ago 26" DataType="Date" />
-      <OutputField Name="DaysAgo27" Caption="Days Ago 27" DataType="Date" />
-      <OutputField Name="DaysAgo28" Caption="Days Ago 28" DataType="Date" />
-      <OutputField Name="DaysAgo29" Caption="Days Ago 29" DataType="Date" />
-      <OutputField Name="DaysAgo30" Caption="Days Ago 30" DataType="Date" />
-      <OutputField Name="DaysAgo31" Caption="Days Ago 31" DataType="Date" />
-      <OutputField Name="WeeksAgo1" Caption="Weeks Ago 01" DataType="Date" />
-      <OutputField Name="WeeksAgo2" Caption="Weeks Ago 02" DataType="Date" />
-      <OutputField Name="WeeksAgo3" Caption="Weeks Ago 03" DataType="Date" />
-      <OutputField Name="WeeksAgo4" Caption="Weeks Ago 04" DataType="Date" />
-      <OutputField Name="WeeksAgo5" Caption="Weeks Ago 05" DataType="Date" />
-      <OutputField Name="WeeksAgo6" Caption="Weeks Ago 06" DataType="Date" />
-      <OutputField Name="WeeksAgo7" Caption="Weeks Ago 07" DataType="Date" />
-      <OutputField Name="WeeksAgo8" Caption="Weeks Ago 08" DataType="Date" />
-      <OutputField Name="WeeksAgo9" Caption="Weeks Ago 09" DataType="Date" />
-      <OutputField Name="WeeksAgo10" Caption="Weeks Ago 10" DataType="Date" />
-      <OutputField Name="WeeksAgo11" Caption="Weeks Ago 11" DataType="Date" />
-      <OutputField Name="WeeksAgo12" Caption="Weeks Ago 12" DataType="Date" />
-      <OutputField Name="MonthsAgo1" Caption="Months Ago 01" DataType="Date" />
-      <OutputField Name="MonthsAgo2" Caption="Months Ago 02" DataType="Date" />
-      <OutputField Name="MonthsAgo3" Caption="Months Ago 03" DataType="Date" />
-      <OutputField Name="MonthsAgo4" Caption="Months Ago 04" DataType="Date" />
-      <OutputField Name="MonthsAgo5" Caption="Months Ago 05" DataType="Date" />
-      <OutputField Name="MonthsAgo6" Caption="Months Ago 06" DataType="Date" />
-      <OutputField Name="MonthsAgo7" Caption="Months Ago 07" DataType="Date" />
-      <OutputField Name="MonthsAgo8" Caption="Months Ago 08" DataType="Date" />
-      <OutputField Name="MonthsAgo9" Caption="Months Ago 09" DataType="Date" />
-      <OutputField Name="MonthsAgo10" Caption="Months Ago 10" DataType="Date" />
-      <OutputField Name="MonthsAgo11" Caption="Months Ago 11" DataType="Date" />
-      <OutputField Name="MonthsAgo12" Caption="Months Ago 12" DataType="Date" />
-      <OutputField Name="MonthsAgo18" Caption="Months Ago 18" DataType="Date" />
-      <OutputField Name="YearsAgo1" Caption="Years Ago 01" DataType="Date" />
-      <OutputField Name="YearsAgo2" Caption="Years Ago 02" DataType="Date" />
-      <OutputField Name="YearsAgo3" Caption="Years Ago 03" DataType="Date" />
-      <OutputField Name="YearsAgo4" Caption="Years Ago 04" DataType="Date" />
-      <OutputField Name="YearsAgo5" Caption="Years Ago 05" DataType="Date" />
-      <OutputField Name="YearsAgo6" Caption="Years Ago 06" DataType="Date" />
-      <OutputField Name="YearsAgo7" Caption="Years Ago 07" DataType="Date" />
-      <OutputField Name="YearsAgo8" Caption="Years Ago 08" DataType="Date" />
-      <OutputField Name="YearsAgo9" Caption="Years Ago 09" DataType="Date" />
-      <OutputField Name="YearsAgo10" Caption="Years Ago 10" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo2" Caption="Days Ago 02" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo3" Caption="Days Ago 03" DataType="Date" />      
+      <OutputField Category="Rolling Backward" Name="DaysAgo4" Caption="Days Ago 04" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo5" Caption="Days Ago 05" DataType="Date" />      
+      <OutputField Category="Rolling Backward" Name="DaysAgo6" Caption="Days Ago 06" DataType="Date" />      
+      <OutputField Category="Rolling Backward" Name="DaysAgo7" Caption="Days Ago 07" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo8" Caption="Days Ago 08" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo9" Caption="Days Ago 09" DataType="Date" />      
+      <OutputField Category="Rolling Backward" Name="DaysAgo10" Caption="Days Ago 10" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo11" Caption="Days Ago 11" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo12" Caption="Days Ago 12" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo13" Caption="Days Ago 13" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo14" Caption="Days Ago 14" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo15" Caption="Days Ago 15" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo16" Caption="Days Ago 16" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo17" Caption="Days Ago 17" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo18" Caption="Days Ago 18" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo19" Caption="Days Ago 19" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo20" Caption="Days Ago 20" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo21" Caption="Days Ago 21" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo22" Caption="Days Ago 22" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo23" Caption="Days Ago 23" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo24" Caption="Days Ago 24" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo25" Caption="Days Ago 25" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo26" Caption="Days Ago 26" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo27" Caption="Days Ago 27" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo28" Caption="Days Ago 28" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo29" Caption="Days Ago 29" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo30" Caption="Days Ago 30" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="DaysAgo31" Caption="Days Ago 31" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo1" Caption="Weeks Ago 01" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo2" Caption="Weeks Ago 02" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo3" Caption="Weeks Ago 03" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo4" Caption="Weeks Ago 04" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo5" Caption="Weeks Ago 05" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo6" Caption="Weeks Ago 06" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo7" Caption="Weeks Ago 07" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo8" Caption="Weeks Ago 08" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo9" Caption="Weeks Ago 09" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo10" Caption="Weeks Ago 10" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo11" Caption="Weeks Ago 11" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="WeeksAgo12" Caption="Weeks Ago 12" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo1" Caption="Months Ago 01" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo2" Caption="Months Ago 02" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo3" Caption="Months Ago 03" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo4" Caption="Months Ago 04" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo5" Caption="Months Ago 05" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo6" Caption="Months Ago 06" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo7" Caption="Months Ago 07" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo8" Caption="Months Ago 08" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo9" Caption="Months Ago 09" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo10" Caption="Months Ago 10" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo11" Caption="Months Ago 11" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo12" Caption="Months Ago 12" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo18" Caption="Months Ago 18" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo1" Caption="Years Ago 01" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo2" Caption="Years Ago 02" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo3" Caption="Years Ago 03" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo4" Caption="Years Ago 04" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo5" Caption="Years Ago 05" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo6" Caption="Years Ago 06" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo7" Caption="Years Ago 07" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo8" Caption="Years Ago 08" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo9" Caption="Years Ago 09" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo10" Caption="Years Ago 10" DataType="Date" />
       
-      <OutputField Name="DaysAhead7" Caption="Days Ahead 07" DataType="Date" />
-      <OutputField Name="DaysAhead14" Caption="Days Ahead 14" DataType="Date" />
-      <OutputField Name="DaysAhead21" Caption="Days Ahead 21" DataType="Date" />
-      <OutputField Name="DaysAhead28" Caption="Days Ahead 28" DataType="Date" />
-      <OutputField Name="MonthsAhead1" Caption="Months Ahead 1" DataType="Date" />
-      <OutputField Name="MonthsAhead2" Caption="Months Ahead 2" DataType="Date" />
-      <OutputField Name="MonthsAhead3" Caption="Months Ahead 3" DataType="Date" />
-      <OutputField Name="MonthsAhead4" Caption="Months Ahead 4" DataType="Date" />
-      <OutputField Name="MonthsAhead5" Caption="Months Ahead 5" DataType="Date" />
-      <OutputField Name="MonthsAhead6" Caption="Months Ahead 6" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="DaysAhead7" Caption="Days Ahead 07" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="DaysAhead14" Caption="Days Ahead 14" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="DaysAhead21" Caption="Days Ahead 21" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="DaysAhead28" Caption="Days Ahead 28" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="MonthsAhead1" Caption="Months Ahead 1" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="MonthsAhead2" Caption="Months Ahead 2" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="MonthsAhead3" Caption="Months Ahead 3" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="MonthsAhead4" Caption="Months Ahead 4" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="MonthsAhead5" Caption="Months Ahead 5" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="MonthsAhead6" Caption="Months Ahead 6" DataType="Date" />
+      
+      <OutputField Category="Week Days" Name="ThisWeekDay1" Caption="This Week Day 1 - Sunday" DataType="Date" />
+      <OutputField Category="Week Days" Name="ThisWeekDay2" Caption="This Week Day 2 - Monday" DataType="Date" />
+      <OutputField Category="Week Days" Name="ThisWeekDay3" Caption="This Week Day 3 - Tuesday" DataType="Date" />
+      <OutputField Category="Week Days" Name="ThisWeekDay4" Caption="This Week Day 4 - Wednesday" DataType="Date" />
+      <OutputField Category="Week Days" Name="ThisWeekDay5" Caption="This Week Day 5 - Thursday" DataType="Date" />
+      <OutputField Category="Week Days" Name="ThisWeekDay6" Caption="This Week Day 6 - Friday" DataType="Date" />
+      <OutputField Category="Week Days" Name="ThisWeekDay7" Caption="This Week Day 7 - Saturday" DataType="Date" />
+      <OutputField Category="Week Days" Name="LastWeekDay1" Caption="Last Week Day 1 - Sunday" DataType="Date" />
+      <OutputField Category="Week Days" Name="LastWeekDay2" Caption="Last Week Day 2 - Monday" DataType="Date" />
+      <OutputField Category="Week Days" Name="LastWeekDay3" Caption="Last Week Day 3 - Tuesday" DataType="Date" />
+      <OutputField Category="Week Days" Name="LastWeekDay4" Caption="Last Week Day 4 - Wednesday" DataType="Date" />
+      <OutputField Category="Week Days" Name="LastWeekDay5" Caption="Last Week Day 5 - Thursday" DataType="Date" />
+      <OutputField Category="Week Days" Name="LastWeekDay6" Caption="Last Week Day 6 - Friday" DataType="Date" />
+      <OutputField Category="Week Days" Name="LastWeekDay7" Caption="Last Week Day 7 - Saturday" DataType="Date" />
+      <OutputField Category="Week Days" Name="NextWeekDay1" Caption="Next Week Day 1 - Sunday" DataType="Date" />
+      <OutputField Category="Week Days" Name="NextWeekDay2" Caption="Next Week Day 2 - Monday" DataType="Date" />
+      <OutputField Category="Week Days" Name="NextWeekDay3" Caption="Next Week Day 3 - Tuesday" DataType="Date" />
+      <OutputField Category="Week Days" Name="NextWeekDay4" Caption="Next Week Day 4 - Wednesday" DataType="Date" />
+      <OutputField Category="Week Days" Name="NextWeekDay5" Caption="Next Week Day 5 - Thursday" DataType="Date" />
+      <OutputField Category="Week Days" Name="NextWeekDay6" Caption="Next Week Day 6 - Friday" DataType="Date" />
+      <OutputField Category="Week Days" Name="NextWeekDay7" Caption="Next Week Day 7 - Saturday" DataType="Date" />
      </OutputFields>
   </Output>
 
