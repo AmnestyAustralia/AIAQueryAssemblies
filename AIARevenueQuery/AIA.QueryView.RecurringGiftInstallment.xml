@@ -7,7 +7,7 @@
   Author="Danny Smith (AIA)"
   IsRoot="false"
   PrimaryKeyField="ID"
-  RecordType="Revenue"
+  RecordType="Installment"
   c:SecurityUIFolder="Revenue\Recurring Gifts"
   >
 
@@ -38,7 +38,6 @@ from
   dbo.RECURRINGGIFTINSTALLMENT AS RGI with (nolock)
   left join dbo.CHANGEAGENT as ADDEDBY with (nolock) on ADDEDBY.ID = RGI.ADDEDBYID
   left join dbo.CHANGEAGENT as CHANGEDBY with (nolock) on CHANGEDBY.ID = RGI.CHANGEDBYID
-
       ]]>
     </ViewSQL>
   </ViewImplementation>

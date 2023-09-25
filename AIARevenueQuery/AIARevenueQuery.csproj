@@ -66,10 +66,27 @@
     <EmbeddedResource Include="AIA.PackageSpec.RevenueQuery.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AIA.QueryView.RecurringGiftInstallment.xml" />
+    <EmbeddedResource Include="AIA.QueryView.RecurringGiftInstallment.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AIA.QueryView.RecurringGiftAmendment.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AIA.QueryView.RecurringGiftInstallmentPayment.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AIA.QueryView.RecurringGiftInstallmentEvent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AIA.QueryView.RecurringGiftInstallmentWriteoff.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

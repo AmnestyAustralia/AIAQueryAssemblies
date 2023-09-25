@@ -11,6 +11,9 @@
     <c:Dependency CatalogAssembly="AIARevenueQuery.dll" CatalogItem="AIARevenueQuery.AIA.QueryView.RecurringGiftOriginal.xml" />
     <c:Dependency CatalogAssembly="AIARevenueQuery.dll" CatalogItem="AIARevenueQuery.AIA.QueryView.RecurringGiftAmendment.xml" />
     <c:Dependency CatalogAssembly="AIARevenueQuery.dll" CatalogItem="AIARevenueQuery.AIA.QueryView.RecurringGiftInstallment.xml" />
+    <c:Dependency CatalogAssembly="AIARevenueQuery.dll" CatalogItem="AIARevenueQuery.AIA.QueryView.RecurringGiftInstallmentEvent.xml" />
+    <c:Dependency CatalogAssembly="AIARevenueQuery.dll" CatalogItem="AIARevenueQuery.AIA.QueryView.RecurringGiftInstallmentPayment.xml" />
+    <c:Dependency CatalogAssembly="AIARevenueQuery.dll" CatalogItem="AIARevenueQuery.AIA.QueryView.RecurringGiftInstallmentWriteoff.xml" />
   </c:DependencyList>
 
 </PackageSpec>
