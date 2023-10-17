@@ -83,7 +83,7 @@ from
   <RelationshipOperations>
     <AddToParentView PathAlias="Recurring Gift Installment Payments (AIA)" ParentView="USR_AIA_V_QUERY_RECURRINGGIFTINSTALLMENT" Field="RECURRINGGIFTINSTALLMENTID" ParentViewRelatedField="ID" />
     <!--<AddRelatedView RelatedView="V_QUERY_REVENUE" PathAlias="Revenue" Field="PAYMENTID" RelatedField="ID" DisplayAliasResourceKey="$$revenue" />-->
-    <AddRelatedView RelatedView="V_QUERY_REVENUESPLIT" PathAlias="Payments" Field="PAYMENTID" RelatedField="ID" DisplayAliasResourceKey="$$payments" />
+    <AddRelatedView RelatedView="V_QUERY_REVENUESPLIT" PathAlias="Payments" Field="PAYMENTID" RelatedField="REVENUEID" DisplayAliasResourceKey="$$payments" />
   </RelationshipOperations>
 </QueryViewSpec>
 
