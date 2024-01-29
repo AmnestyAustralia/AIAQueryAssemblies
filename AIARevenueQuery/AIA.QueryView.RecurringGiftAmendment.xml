@@ -28,6 +28,11 @@ select
   HISTORY.TRANSACTIONAMOUNTCHANGE as AMOUNTCHANGE,
   HISTORY.PAYMENTMETHOD,
   HISTORY.PREVIOUSPAYMENTMETHOD,
+
+  CASE WHEN TRANSACTIONAMOUNT=PREVIOUSTRANSACTIONAMOUNT OR (TRANSACTIONAMOUNT IS NULL AND PREVIOUSTRANSACTIONAMOUNT IS NULL) THEN 0 ELSE 1 END AS AMOUNTCHANGEFLAG,
+  CASE WHEN FREQUENCY=PREVIOUSFREQUENCY OR (FREQUENCY IS NULL AND PREVIOUSFREQUENCY IS NULL) THEN 0 ELSE 1 END AS FREQUENCYCHANGE,
+  CASE WHEN PAYMENTMETHOD=PREVIOUSPAYMENTMETHOD OR (PAYMENTMETHOD IS NULL AND PREVIOUSPAYMENTMETHOD IS NULL) THEN 0 ELSE 1 END AS PAYMENTMETHODCHANGE,
+
   HISTORY.STATUS,
   HISTORY.PREVIOUSSTATUS,
   HISTORY.STATUSCHANGETYPE,
@@ -39,6 +44,11 @@ select
   CASE WHEN CARDHOLDERNAME=PREVIOUSCARDHOLDERNAME OR (CARDHOLDERNAME IS NULL AND PREVIOUSCARDHOLDERNAME IS NULL) THEN 0 ELSE 1 END AS CCNAMECHANGE,
   CASE WHEN EXPIRESON=PREVIOUSEXPIRESON OR (EXPIRESON IS NULL AND PREVIOUSEXPIRESON IS NULL) THEN 0 ELSE 1 END AS CCEXPIRYCHANGE,
   CASE WHEN CONSTITUENTACCOUNTID=PREVIOUSCONSTITUENTACCOUNTID OR (CONSTITUENTACCOUNTID IS NULL AND PREVIOUSCONSTITUENTACCOUNTID IS NULL) THEN 0 ELSE 1 END AS DDACCOUNTCHANGE,
+
+  CCTYPENEW.DESCRIPTION as CREDITTYPE,
+  CCTYPEPREV.DESCRIPTION as PREVIOUSCREDITTYPE,
+  CASE WHEN HISTORY.EXPIRESON='00000000' THEN NULL ELSE HISTORY.EXPIRESON END AS EXPIRESON,
+  CASE WHEN HISTORY.PREVIOUSEXPIRESON='00000000' THEN NULL ELSE HISTORY.PREVIOUSEXPIRESON END AS PREVIOUSEXPIRESON,
 
   HISTORY.SOURCECODE,
   HISTORY.FINDERNUMBER,
@@ -76,6 +86,8 @@ left join dbo.RECURRINGGIFTSTATUSREASONCODE on HISTORY.RECURRINGGIFTSTATUSREASON
 left join dbo.CHANNELCODE on CHANNELCODE.ID = HISTORY.CHANNELCODEID
 left join dbo.CHANGEAGENT as ADDEDBY with (nolock) on ADDEDBY.ID = HISTORY.ADDEDBYID
 left join dbo.CHANGEAGENT as CHANGEDBY with (nolock) on CHANGEDBY.ID = HISTORY.CHANGEDBYID
+left join dbo.CREDITTYPECODE as CCTYPENEW on CCTYPENEW.ID = HISTORY.CREDITTYPECODEID
+left join dbo.CREDITTYPECODE as CCTYPEPREV on CCTYPEPREV.ID = HISTORY.PREVIOUSCREDITTYPECODEID
       ]]>
     </ViewSQL>
   </ViewImplementation>
@@ -186,11 +198,20 @@ left join dbo.CHANGEAGENT as CHANGEDBY with (nolock) on CHANGEDBY.ID = HISTORY.C
           </TranslationList>
         </LookupInfo>
       </OutputField>
+      <OutputField Name="AMOUNTCHANGEFLAG" Category="Change - financial" Caption="Details changed - amount" DataType="Boolean" />
+      <OutputField Name="FREQUENCYCHANGE" Category="Change - financial" Caption="Details changed - frequency" DataType="Boolean" />
+      <OutputField Name="PAYMENTMETHODCHANGE" Category="Change - financial" Caption="Details changed - payment method" DataType="Boolean" />
+      
+      <OutputField Name="CREDITTYPE" Category="Change - payment details" Caption="New credit card type" DataType="String" />
+      <OutputField Name="PREVIOUSCREDITTYPE" Category="Change - payment details" Caption="Previous credit card type" DataType="String" />
+      <OutputField Name="EXPIRESON" Category="Change - payment details" Caption="New credit card expiry" DataType="FuzzyDate" />
+      <OutputField Name="PREVIOUSEXPIRESON" Category="Change - payment details" Caption="Previous credit card expiry" DataType="FuzzyDate" />
       <OutputField Name="CCTYPECHANGE" Category="Change - payment details" Caption="Details changed - credit card type" DataType="Boolean" />
       <OutputField Name="CCNUMBERCHANGE" Category="Change - payment details" Caption="Details changed - credit card number" DataType="Boolean" />
       <OutputField Name="CCNAMECHANGE" Category="Change - payment details" Caption="Details changed - credit card cardholder name" DataType="Boolean" />
       <OutputField Name="CCEXPIRYCHANGE" Category="Change - payment details" Caption="Details changed - credit card expiry" DataType="Boolean" />
       <OutputField Name="DDACCOUNTCHANGE" Category="Change - payment details" Caption="Details changed - direct debit account" DataType="Boolean" />
+
       <OutputField Name="STATUS" Category="Change - status" Caption="New status" CaptionResourceKey="$new_status">
         <LookupInfo>
           <TranslationList>
@@ -245,6 +266,7 @@ left join dbo.CHANGEAGENT as CHANGEDBY with (nolock) on CHANGEDBY.ID = HISTORY.C
       </OutputField>
       <OutputField Name="RECURRINGGIFTSTATUSREASONCODE" Category="Change - status" Caption="Status change reason" DataType="String" CaptionResourceKey="$$status_change_reason" />
       <OutputField Name="RECURRINGGIFTSTATUSREASONDESCRIPTION" Category="Change - status" Caption="Status change reason description" DataType="String" CaptionResourceKey="$$status_change_reason_description" />
+
       <OutputField Name="SOURCECODE" Caption="Source" CaptionResourceKey="$$source" />
       <OutputField Name="FINDERNUMBER" Caption="Finder number" CaptionResourceKey="$$finder_number" />
       <OutputField Name="APPEALID" IsHidden="true" />
