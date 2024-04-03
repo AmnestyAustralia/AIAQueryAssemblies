@@ -152,6 +152,13 @@ SELECT
   cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, 3) as date) as LastWeekDay5,
   cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, 4) as date) as LastWeekDay6,
   cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-1, 5) as date) as LastWeekDay7,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-2, -1) as date) as TwoWeeksAgoDay1,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-2, 0) as date) as TwoWeeksAgoDay2,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-2, 1) as date) as TwoWeeksAgoDay3,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-2, 2) as date) as TwoWeeksAgoDay4,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-2, 3) as date) as TwoWeeksAgoDay5,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-2, 4) as date) as TwoWeeksAgoDay6,
+  cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())-2, 5) as date) as TwoWeeksAgoDay7,
   cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, -1) as date) as NextWeekDay1,
   cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, 0) as date) as NextWeekDay2,
   cast(DATEADD(ww, DATEDIFF(ww, 0, GETDATE())+1, 1) as date) as NextWeekDay3,
@@ -297,6 +304,13 @@ FROM
       <OutputField Category="Week Days" Name="LastWeekDay5" Caption="Last Week Day 5 - Thursday" DataType="Date" />
       <OutputField Category="Week Days" Name="LastWeekDay6" Caption="Last Week Day 6 - Friday" DataType="Date" />
       <OutputField Category="Week Days" Name="LastWeekDay7" Caption="Last Week Day 7 - Saturday" DataType="Date" />
+      <OutputField Category="Week Days" Name="TwoWeeksAgoDay1" Caption="Two Weeks Ago Day 1 - Sunday" DataType="Date" />
+      <OutputField Category="Week Days" Name="TwoWeeksAgoDay2" Caption="Two Weeks Ago Day 2 - Monday" DataType="Date" />
+      <OutputField Category="Week Days" Name="TwoWeeksAgoDay3" Caption="Two Weeks Ago Day 3 - Tuesday" DataType="Date" />
+      <OutputField Category="Week Days" Name="TwoWeeksAgoDay4" Caption="Two Weeks Ago Day 4 - Wednesday" DataType="Date" />
+      <OutputField Category="Week Days" Name="TwoWeeksAgoDay5" Caption="Two Weeks Ago Day 5 - Thursday" DataType="Date" />
+      <OutputField Category="Week Days" Name="TwoWeeksAgoDay6" Caption="Two Weeks Ago Day 6 - Friday" DataType="Date" />
+      <OutputField Category="Week Days" Name="TwoWeeksAgoDay7" Caption="Two Weeks Ago Day 7 - Saturday" DataType="Date" />
       <OutputField Category="Week Days" Name="NextWeekDay1" Caption="Next Week Day 1 - Sunday" DataType="Date" />
       <OutputField Category="Week Days" Name="NextWeekDay2" Caption="Next Week Day 2 - Monday" DataType="Date" />
       <OutputField Category="Week Days" Name="NextWeekDay3" Caption="Next Week Day 3 - Tuesday" DataType="Date" />
