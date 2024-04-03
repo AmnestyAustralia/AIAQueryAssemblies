@@ -123,6 +123,14 @@ SELECT
   cast(DATEADD(day, +14, GETDATE()) as date) as DaysAhead14,
   cast(DATEADD(day, +21, GETDATE()) as date) as DaysAhead21,
   cast(DATEADD(day, +28, GETDATE()) as date) as DaysAhead28,
+  cast(DATEADD(week, +1, (GETDATE())) as date) as WeeksAhead1,
+  cast(DATEADD(week, +2, (GETDATE())) as date) as WeeksAhead2,
+  cast(DATEADD(week, +3, (GETDATE())) as date) as WeeksAhead3,
+  cast(DATEADD(week, +4, (GETDATE())) as date) as WeeksAhead4,
+  cast(DATEADD(week, +5, (GETDATE())) as date) as WeeksAhead5,
+  cast(DATEADD(week, +6, (GETDATE())) as date) as WeeksAhead6,
+  cast(DATEADD(week, +7, (GETDATE())) as date) as WeeksAhead7,
+  cast(DATEADD(week, +8, (GETDATE())) as date) as WeeksAhead8,
   cast(DATEADD(month, +1, (GETDATE())) as date) as MonthsAhead1,
   cast(DATEADD(month, +2, (GETDATE())) as date) as MonthsAhead2,
   cast(DATEADD(month, +3, (GETDATE())) as date) as MonthsAhead3,
@@ -260,6 +268,14 @@ FROM
       <OutputField Category="Rolling Forward" Name="DaysAhead14" Caption="Days Ahead 14" DataType="Date" />
       <OutputField Category="Rolling Forward" Name="DaysAhead21" Caption="Days Ahead 21" DataType="Date" />
       <OutputField Category="Rolling Forward" Name="DaysAhead28" Caption="Days Ahead 28" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="WeeksAhead1" Caption="Weeks Ahead 1" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="WeeksAhead2" Caption="Weeks Ahead 2" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="WeeksAhead3" Caption="Weeks Ahead 3" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="WeeksAhead4" Caption="Weeks Ahead 4" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="WeeksAhead5" Caption="Weeks Ahead 5" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="WeeksAhead6" Caption="Weeks Ahead 6" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="WeeksAhead7" Caption="Weeks Ahead 7" DataType="Date" />
+      <OutputField Category="Rolling Forward" Name="WeeksAhead8" Caption="Weeks Ahead 8" DataType="Date" />
       <OutputField Category="Rolling Forward" Name="MonthsAhead1" Caption="Months Ahead 1" DataType="Date" />
       <OutputField Category="Rolling Forward" Name="MonthsAhead2" Caption="Months Ahead 2" DataType="Date" />
       <OutputField Category="Rolling Forward" Name="MonthsAhead3" Caption="Months Ahead 3" DataType="Date" />
