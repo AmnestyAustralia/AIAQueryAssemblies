@@ -9,6 +9,7 @@
 
   <c:DependencyList>
     <c:Dependency CatalogAssembly="AIAConstituentQuery.dll" CatalogItem="AIAConstituentQuery.AIA.QueryView.ProspectPlanParticipants.xml" />
+    <c:Dependency CatalogAssembly="AIAConstituentQuery.dll" CatalogItem="AIAConstituentQuery.AIA.QueryView.EmailAddressPrimary.xml" />
   </c:DependencyList>
 
 </PackageSpec>
