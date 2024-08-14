@@ -61,13 +61,24 @@
     <EmbeddedResource Include="AIA.QueryView.ProspectPlanParticipants.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AIA.PackageSpec.ConstituentQuery.xml" />
+    <EmbeddedResource Include="AIA.PackageSpec.ConstituentQuery.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AIA.QueryView.EmailAddressPrimary.xml" />
+    <EmbeddedResource Include="AIA.QueryView.EmailAddressPrimary.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AIA.QueryView.PhonePrimary.xml" />
+    <EmbeddedResource Include="AIA.QueryView.PhonePrimary.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AIA.QueryView.AppealMailingConstituent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

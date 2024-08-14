@@ -1,0 +1,211 @@
+﻿<QueryViewSpec
+  xmlns="bb_appfx_queryview"
+  xmlns:c="bb_appfx_commontypes" 
+  ID="22960fd4-b88c-4e41-8721-b6a83f4f2e6d"
+  Name="Appeal Mailing (AIA)"
+  Description="Query view for Constituent Appeal records."
+  Author="Danny Smith (AIA)"
+  IsRoot="false"
+  PrimaryKeyField="ID"
+  RecordType="Constituent Appeal"
+  EnforceRecordAccessSecurity="true"
+  c:SecurityUIFolder="Fundraising Efforts\Appeals"
+  >
+  <c:DependencyList>
+    <c:Dependency CatalogAssembly="Blackbaud.AppFx.Fundraising.Catalog.DLL" CatalogItem="Blackbaud.AppFx.Fundraising.Catalog.Appeal.Search.xml" />
+    <c:Dependency CatalogAssembly="Blackbaud.AppFx.Marketing.Catalog.DLL" CatalogItem="Blackbaud.AppFx.Marketing.Catalog.Segmentation.Search.xml" />
+    <c:Dependency CatalogAssembly="Blackbaud.AppFx.Marketing.Catalog.DLL" CatalogItem="Blackbaud.AppFx.Marketing.Catalog.Package.Search.xml" />
+    <c:Dependency CatalogAssembly="Blackbaud.AppFx.Marketing.Catalog.DLL" CatalogItem="Blackbaud.AppFx.Marketing.Catalog.Segment.Search.xml" />
+    <c:Dependency CatalogAssembly="Blackbaud.AppFx.Constituent.Catalog.dll" CatalogItem="Blackbaud.AppFx.Constituent.Catalog.ConstituentCorrespondenceAll.Query.xml" />
+  </c:DependencyList>
+  <c:InstalledProductList>
+    <c:InstalledProduct ID="3117d2c8-7f46-42f2-abeb-b654f2f63046" />
+    <c:InstalledProduct ID="42c15648-749e-4859-a56d-3a6474814cc7" />
+  </c:InstalledProductList>
+  <Extensibility>
+    <Tables>
+      <Table Name="CONSTITUENTAPPEAL" />
+    </Tables>
+  </Extensibility>
+  <ResourceFile AssemblyName="Blackbaud.AppFx.Fundraising.Catalog.V1_1.dll" ClassName="Blackbaud.AppFx.Fundraising.Catalog.V1_1.ConstituentAppeal.Query" />
+
+  <!-- define the view used to return data for the query -->
+  <ViewImplementation ViewName="USR_AIA_V_QUERY_CONSTITUENTAPPEAL">
+    <ViewSQL>
+      <![CDATA[
+select
+  A.ID,
+  A.CONSTITUENTID,
+  A.APPEALID,
+  A.MKTSEGMENTATIONID,
+  MKTSEGMENTATION.NAME as MKTSEGMENTATION_DESCRIPTION,
+  A.SOURCECODE,
+  A.FINDERNUMBER,
+  A.DATESENT,
+  A.COMMENTS,
+  A.MKTPACKAGEID,
+  MKTPACKAGE.NAME as MKTPACKAGE_DESCRIPTION,
+  MKTSEGMENTATIONSEGMENT.SEGMENTID,
+  MKTSEGMENT.NAME as MKTSEGMENTATIONSEGMENT_DESCRIPTION,
+  TESTSEGMENT.SEGMENTID as TESTSEGMENTID,
+  dbo.UFN_MKTSEGMENTATIONTESTSEGMENT_GETNAME(A.MKTSEGMENTATIONTESTSEGMENTID) as MKTSEGMENTATIONTESTSEGMENT_DESCRIPTION,
+  A.DATEADDED,
+  A.DATECHANGED,
+  A.TSLONG,
+  ADDEDBY.APPLICATIONNAME as ADDEDBY_APPLICATION,
+  ADDEDBY.USERNAME as ADDEDBY_USERNAME,
+  CHANGEDBY.APPLICATIONNAME as CHANGEDBY_APPLICATION,
+  CHANGEDBY.USERNAME as CHANGEDBY_USERNAME,
+  MKTPACKAGE.CHANNEL,
+  coalesce(MAILLETTER.ID, EMAILLETTER.ID) as LETTERID,
+  coalesce(MAILLETTER.NAME, EMAILLETTER.NAME) as LETTERNAME  
+
+from dbo.CONSTITUENTAPPEAL A with (nolock)
+left join dbo.MKTSEGMENTATION on MKTSEGMENTATION.ID = A.MKTSEGMENTATIONID
+left join dbo.MKTPACKAGE on MKTPACKAGE.ID = A.MKTPACKAGEID
+left join dbo.MKTSEGMENTATIONSEGMENT on MKTSEGMENTATIONSEGMENT.ID = A.MKTSEGMENTATIONSEGMENTID
+left join dbo.MKTSEGMENT on MKTSEGMENT.ID = MKTSEGMENTATIONSEGMENT.SEGMENTID
+left join dbo.MKTSEGMENTATIONTESTSEGMENT on MKTSEGMENTATIONTESTSEGMENT.ID = A.MKTSEGMENTATIONTESTSEGMENTID
+left join dbo.MKTSEGMENTATIONSEGMENT TESTSEGMENT on MKTSEGMENTATIONTESTSEGMENT.SEGMENTID = TESTSEGMENT.ID
+left join dbo.COMMUNICATIONLETTER MAILLETTER on MKTPACKAGE.ID = MAILLETTER.MAILPACKAGEID
+left join dbo.COMMUNICATIONLETTER EMAILLETTER on MKTPACKAGE.ID = EMAILLETTER.EMAILPACKAGEID
+left join dbo.CHANGEAGENT ADDEDBY with (nolock) on ADDEDBY.ID = A.ADDEDBYID
+left join dbo.CHANGEAGENT CHANGEDBY with (nolock) on CHANGEDBY.ID = A.CHANGEDBYID
+      ]]>
+    </ViewSQL>
+  </ViewImplementation>
+  <Output>
+    <OutputFields>
+      <OutputField Name="ID" Caption="System record ID" Category="System Fields" CaptionResourceKey="$$system_record_id" CategoryResourceKey="$$system_fields" />
+      <OutputField Name="CONSTITUENTID" Caption="Constituent" IsHidden="true" CaptionResourceKey="$$constituent" />
+      <OutputField Name="APPEALID" Caption="Appeal" IsHidden="true" CaptionResourceKey="$$appeal" />
+      <OutputField Name="MKTSEGMENTATIONID" Caption="Mailing system record ID" DataType="Guid" Category="System Fields" CaptionResourceKey="$$mailing_system_record_id" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SearchList ID="349397CB-E2DD-43E8-A4CA-AF5647C91D99">
+            <FormFieldOverrides>
+              <c:FormFieldOverride FieldID="STATUS" Caption="Status" ReadOnly="true" Hidden="true" DefaultValueText="1" />
+              <c:FormFieldOverride FieldID="INCLUDEAPPEALMAILINGS" Caption="Include appeal mailings" ReadOnly="true" Hidden="true" DefaultValueText="true" />
+            </FormFieldOverrides>
+          </SearchList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="MKTSEGMENTATION_DESCRIPTION" Caption="Mailing" DataType="String" CaptionResourceKey="$$mailing" />
+      <OutputField Name="SOURCECODE" Caption="Source code" CaptionResourceKey="$$source_code">
+        <c:InstalledProductList>
+          <c:InstalledProduct ID="3117D2C8-7F46-42F2-ABEB-B654F2F63046" />
+          <c:InstalledProduct ID="BB9873D7-F1ED-430A-8AB4-F09F47056538" />
+        </c:InstalledProductList>
+      </OutputField>
+      <OutputField Name="FINDERNUMBER" Caption="Finder number" Format="#" CaptionResourceKey="$$finder_number" />
+      <OutputField Name="DATESENT" Caption="Date sent" CaptionResourceKey="$$date_sent" />
+      <OutputField Name="COMMENTS" Caption="Comments" CaptionResourceKey="$$comments" />
+      <OutputField Name="MKTPACKAGEID" Caption="Package system record ID" DataType="Guid" CaptionResourceKey="$$package_system_record_id">
+        <LookupInfo>
+          <SearchList ID="6C987701-423D-4CAA-8A58-709B6FD44043" />
+        </LookupInfo>
+        <c:InstalledProductList>
+          <c:InstalledProduct ID="3117D2C8-7F46-42F2-ABEB-B654F2F63046" />
+          <c:InstalledProduct ID="BB9873D7-F1ED-430A-8AB4-F09F47056538" />
+        </c:InstalledProductList>
+      </OutputField>
+      <OutputField Name="MKTPACKAGE_DESCRIPTION" Caption="Package" CaptionResourceKey="$$package">
+        <c:InstalledProductList>
+          <c:InstalledProduct ID="3117D2C8-7F46-42F2-ABEB-B654F2F63046" />
+          <c:InstalledProduct ID="BB9873D7-F1ED-430A-8AB4-F09F47056538" />
+        </c:InstalledProductList>
+      </OutputField>
+      <OutputField Name="SEGMENTID" Caption="Segment system record ID" DataType="Guid" CaptionResourceKey="$$segment_system_record_id">
+        <LookupInfo>
+          <SearchList ID="B5E83E37-094F-4173-9658-0425BFEE7BD9" />
+        </LookupInfo>
+        <c:InstalledProductList>
+          <c:InstalledProduct ID="3117D2C8-7F46-42F2-ABEB-B654F2F63046" />
+          <c:InstalledProduct ID="BB9873D7-F1ED-430A-8AB4-F09F47056538" />
+        </c:InstalledProductList>
+      </OutputField>
+      <OutputField Name="MKTSEGMENTATIONSEGMENT_DESCRIPTION" Caption="Segment" CaptionResourceKey="$$segment">
+        <c:InstalledProductList>
+          <c:InstalledProduct ID="3117D2C8-7F46-42F2-ABEB-B654F2F63046" />
+          <c:InstalledProduct ID="BB9873D7-F1ED-430A-8AB4-F09F47056538" />
+        </c:InstalledProductList>
+      </OutputField>
+      <OutputField Name="TESTSEGMENTID" Caption="Test segment system record ID" DataType="Guid" CaptionResourceKey="$$test_segment_system_record_id">
+        <LookupInfo>
+          <SearchList ID="B5E83E37-094F-4173-9658-0425BFEE7BD9" />
+        </LookupInfo>
+        <c:InstalledProductList>
+          <c:InstalledProduct ID="3117D2C8-7F46-42F2-ABEB-B654F2F63046" />
+          <c:InstalledProduct ID="BB9873D7-F1ED-430A-8AB4-F09F47056538" />
+        </c:InstalledProductList>
+      </OutputField>
+      <OutputField Name="MKTSEGMENTATIONTESTSEGMENT_DESCRIPTION" Caption="Test segment" CaptionResourceKey="$$test_segment">
+        <c:InstalledProductList>
+          <c:InstalledProduct ID="3117D2C8-7F46-42F2-ABEB-B654F2F63046" />
+          <c:InstalledProduct ID="BB9873D7-F1ED-430A-8AB4-F09F47056538" />
+        </c:InstalledProductList>
+      </OutputField>
+      <OutputField Name="DATEADDED" Caption="Date added" Category="System Fields" CaptionResourceKey="$$date_added" CategoryResourceKey="$$system_fields" />
+      <OutputField Name="DATECHANGED" Caption="Date changed" Category="System Fields" CaptionResourceKey="$$date_changed" CategoryResourceKey="$$system_fields" />
+      <OutputField Name="TSLONG" Caption="Timestamp value" Category="System Fields" IsHidden="true" CaptionResourceKey="$$timestamp_value" CategoryResourceKey="$$system_fields" />
+      <OutputField Name="ADDEDBY_APPLICATION" Caption="Added by application" Category="System Fields" CaptionResourceKey="$$added_by_application" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SimpleDataList SimpleDataListID="37E3E458-AF0D-4dbc-8A18-A93885521A42" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="ADDEDBY_USERNAME" Caption="Added by user name" Category="System Fields" CaptionResourceKey="$$added_by_user_name" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SimpleDataList SimpleDataListID="CEA15E1C-E455-41be-9ECF-6B5453FA96A4" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="CHANGEDBY_APPLICATION" Caption="Changed by application" Category="System Fields" CaptionResourceKey="$$changed_by_application" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SimpleDataList SimpleDataListID="37E3E458-AF0D-4dbc-8A18-A93885521A42" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="CHANGEDBY_USERNAME" Caption="Changed by user name" Category="System Fields" CaptionResourceKey="$$changed_by_user_name" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SimpleDataList SimpleDataListID="CEA15E1C-E455-41be-9ECF-6B5453FA96A4" />
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="CHANNEL" Caption="Channel" CaptionResourceKey="$$channel">
+        <LookupInfo>
+          <TranslationList>
+            <c:Options>
+              <c:TranslationListOption Value="Mail" />
+              <c:TranslationListOption Value="Email" />
+              <c:TranslationListOption Value="Phone" />
+            </c:Options>
+          </TranslationList>
+        </LookupInfo>
+      </OutputField>
+      <OutputField Name="LETTERID" Caption="Letter system record ID" Category="System Fields" DataType="Guid" CaptionResourceKey="$$letter_system_record_id" CategoryResourceKey="$$system_fields">
+        <LookupInfo>
+          <SearchList ID="7c19b897-02a1-4427-96ee-c4dd8dd3fdff">
+            <FormFieldOverrides>
+              <c:FormFieldOverride FieldID="COMMUNICATIONTYPECODE" DefaultValueText="1" />
+            </FormFieldOverrides>
+          </SearchList>
+        </LookupInfo>
+        <c:InstalledProductList>
+          <c:InstalledProduct ID="42c15648-749e-4859-a56d-3a6474814cc7" />
+        </c:InstalledProductList>
+      </OutputField>
+      <OutputField Name="LETTERNAME" Caption="Letter" DataType="String" CaptionResourceKey="$$letter">
+        <c:InstalledProductList>
+          <c:InstalledProduct ID="42c15648-749e-4859-a56d-3a6474814cc7" />
+        </c:InstalledProductList>
+      </OutputField>
+    </OutputFields>
+    <IdentifyingFields>
+      <IdentifyingField Name="SOURCECODE" />
+    </IdentifyingFields>
+  </Output>
+  <RelationshipOperations>
+    <AddToParentView Field="CONSTITUENTID" ParentView="V_QUERY_CONSTITUENT" ParentViewRelatedField="ID" PathAlias="Appeal Mailing (AIA)" DisplayAliasResourceKey="$$appeal_mailing_aia" />
+    <AddRelatedView Field="CONSTITUENTID" RelatedField="ID" RelatedView="V_QUERY_CONSTITUENT" PathAlias="Constituents" DisplayAliasResourceKey="$$constituents" />
+    <AddRelatedView Field="ID" RelatedField="CONSTITUENTAPPEALID" RelatedView="V_QUERY_CONSTITUENTAPPEAL" PathAlias="Appeal Responses" DisplayAliasResourceKey="$$appeal_responses" />
+    <AddRelatedView Field="APPEALID" RelatedField="ID" RelatedView="V_QUERY_APPEAL" PathAlias="Appeals" DisplayAliasResourceKey="$$appeals" />
+    <AddToParentView Field="ID" ParentViewRelatedField="ID" ParentView="V_QUERY_CONSTITUENTCORRESPONDENCEALL" PathAlias="Appeal Mailings (AIA)" DisplayAliasResourceKey="$$appeal_mailings_aia" />
+  </RelationshipOperations>
+</QueryViewSpec>
+
