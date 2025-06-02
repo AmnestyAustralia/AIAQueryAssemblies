@@ -42,6 +42,7 @@ select
   A.SOURCECODE,
   A.FINDERNUMBER,
   A.DATESENT,
+  MKTSEGMENTATION.ACTIVATEDATE as DATEACTIVATED,
   A.COMMENTS,
   A.MKTPACKAGEID,
   MKTPACKAGE.NAME as MKTPACKAGE_DESCRIPTION,
@@ -98,6 +99,7 @@ left join dbo.CHANGEAGENT CHANGEDBY with (nolock) on CHANGEDBY.ID = A.CHANGEDBYI
       </OutputField>
       <OutputField Name="FINDERNUMBER" Caption="Finder number" Format="#" CaptionResourceKey="$$finder_number" />
       <OutputField Name="DATESENT" Caption="Date sent" CaptionResourceKey="$$date_sent" />
+      <OutputField Name="DATEACTIVATED" Caption="Date activated" CaptionResourceKey="$$date_activated" />
       <OutputField Name="COMMENTS" Caption="Comments" CaptionResourceKey="$$comments" />
       <OutputField Name="MKTPACKAGEID" Caption="Package system record ID" DataType="Guid" CaptionResourceKey="$$package_system_record_id">
         <LookupInfo>
@@ -205,6 +207,7 @@ left join dbo.CHANGEAGENT CHANGEDBY with (nolock) on CHANGEDBY.ID = A.CHANGEDBYI
     <AddRelatedView Field="CONSTITUENTID" RelatedField="ID" RelatedView="V_QUERY_CONSTITUENT" PathAlias="Constituents" DisplayAliasResourceKey="$$constituents" />
     <AddRelatedView Field="ID" RelatedField="CONSTITUENTAPPEALID" RelatedView="V_QUERY_CONSTITUENTAPPEAL" PathAlias="Appeal Responses" DisplayAliasResourceKey="$$appeal_responses" />
     <AddRelatedView Field="APPEALID" RelatedField="ID" RelatedView="V_QUERY_APPEAL" PathAlias="Appeals" DisplayAliasResourceKey="$$appeals" />
+    <AddRelatedView Field="MKTSEGMENTATIONID" RelatedField="ID" RelatedView="V_QUERY_MKTSEGMENTATION" PathAlias="Mailing" DisplayAliasResourceKey="$$mailing" />
     <AddToParentView Field="ID" ParentViewRelatedField="ID" ParentView="V_QUERY_CONSTITUENTCORRESPONDENCEALL" PathAlias="Appeal Mailings (AIA)" DisplayAliasResourceKey="$$appeal_mailings_aia" />
   </RelationshipOperations>
 </QueryViewSpec>
