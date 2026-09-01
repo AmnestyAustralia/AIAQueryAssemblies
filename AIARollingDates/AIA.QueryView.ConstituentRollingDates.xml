@@ -120,6 +120,7 @@ SELECT
   cast(DATEADD(year, -9, (GETDATE())) as date) as YearsAgo9,
   cast(DATEADD(year, -10, (GETDATE())) as date) as YearsAgo10,
   cast(DATEADD(year, -20, (GETDATE())) as date) as YearsAgo20,
+  cast(DATEADD(year, -25, (GETDATE())) as date) as YearsAgo25,
 
   -- Rolling dates forward
   cast(DATEADD(day, +7, GETDATE()) as date) as DaysAhead7,
@@ -275,6 +276,7 @@ FROM
       <OutputField Category="Rolling Backward" Name="YearsAgo9" Caption="Years Ago 09" DataType="Date" />
       <OutputField Category="Rolling Backward" Name="YearsAgo10" Caption="Years Ago 10" DataType="Date" />
       <OutputField Category="Rolling Backward" Name="YearsAgo20" Caption="Years Ago 20" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="YearsAgo25" Caption="Years Ago 25" DataType="Date" />
       
       <OutputField Category="Rolling Forward" Name="DaysAhead7" Caption="Days Ahead 07" DataType="Date" />
       <OutputField Category="Rolling Forward" Name="DaysAhead14" Caption="Days Ahead 14" DataType="Date" />
