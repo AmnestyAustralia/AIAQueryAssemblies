@@ -106,6 +106,7 @@ SELECT
   cast(DATEADD(month, -10, (GETDATE())) as date) as MonthsAgo10,
   cast(DATEADD(month, -11, (GETDATE())) as date) as MonthsAgo11,
   cast(DATEADD(month, -12, (GETDATE())) as date) as MonthsAgo12,
+  cast(DATEADD(month, -13, (GETDATE())) as date) as MonthsAgo13,
   cast(DATEADD(month, -14, (GETDATE())) as date) as MonthsAgo14,
   cast(DATEADD(month, -16, (GETDATE())) as date) as MonthsAgo16,
   cast(DATEADD(month, -18, (GETDATE())) as date) as MonthsAgo18,
@@ -262,6 +263,7 @@ FROM
       <OutputField Category="Rolling Backward" Name="MonthsAgo10" Caption="Months Ago 10" DataType="Date" />
       <OutputField Category="Rolling Backward" Name="MonthsAgo11" Caption="Months Ago 11" DataType="Date" />
       <OutputField Category="Rolling Backward" Name="MonthsAgo12" Caption="Months Ago 12" DataType="Date" />
+      <OutputField Category="Rolling Backward" Name="MonthsAgo13" Caption="Months Ago 13" DataType="Date" />
       <OutputField Category="Rolling Backward" Name="MonthsAgo14" Caption="Months Ago 14" DataType="Date" />
       <OutputField Category="Rolling Backward" Name="MonthsAgo16" Caption="Months Ago 16" DataType="Date" />
       <OutputField Category="Rolling Backward" Name="MonthsAgo18" Caption="Months Ago 18" DataType="Date" />
